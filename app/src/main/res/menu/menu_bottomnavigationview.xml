@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/mapItem"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_map_24"
+        android:title="@string/menu_map" />
+    <item
+        android:id="@+id/postItem"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_collections_24"
+        android:title="@string/menu_post" />
+    <item
+        android:id="@+id/newItem"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_create_24"
+        android:title="@string/menu_new" />
+    <item
+        android:id="@+id/profileItem"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_book_24"
+        android:title="@string/menu_profile" />
+</menu>

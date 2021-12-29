@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Walkbook</string>
+
+    <string name="menu_search">검색</string>
+    <string name="menu_account">내 정보</string>
+    <string name="menu_logout">로그아웃</string>
+
+    <string name="menu_map">지도로 보기</string>
+    <string name="menu_post">게시물로 보기</string>
+    <string name="menu_new">산책로 등록</string>
+    <string name="menu_profile">나의 워크북</string>
+</resources>
