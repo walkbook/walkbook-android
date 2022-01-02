@@ -20,9 +20,9 @@ public class FragmentMap extends Fragment {
         mContext = getActivity();
 
         View root = (ViewGroup) inflater.inflate(R.layout.fragment_map, container, false);
-//        mapView = new MapView(mContext);
-//        ViewGroup mapViewContainer = (ViewGroup)root.findViewById(R.id.map_view);
-//        mapViewContainer.addView(mapView);
+        mapView = new MapView(mContext);
+        ViewGroup mapViewContainer = (ViewGroup)root.findViewById(R.id.map_view);
+        mapViewContainer.addView(mapView);
 
         return root;
     }
@@ -30,6 +30,6 @@ public class FragmentMap extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-//        ((ViewGroup) mapView.getParent()).removeView(mapView);
+        ((ViewGroup) mapView.getParent()).removeView(mapView);
     }
 }
