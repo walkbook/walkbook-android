@@ -7,24 +7,29 @@
     android:background="@color/windowBackground"
     tools:context=".MainActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:title="@string/app_name" />
+
     <FrameLayout
         android:id="@+id/main_frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:minHeight="?attr/actionBarSize"
-            tools:title="@string/app_name" />
+        android:layout_height="0dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="match_parent"
-            android:layout_height="247dp"
+            android:layout_height="300dp"
             android:gravity="center"
             android:text="TEXT"
             android:textColor="#689F38"
