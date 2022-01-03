@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:title="@string/app_name" />
+        tools:title="@string/appName" />
 
     <FrameLayout
         android:id="@+id/main_frame"

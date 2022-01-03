@@ -6,6 +6,7 @@
     <color name="textColorPrimary">#ffffff</color>
     <color name="textColor">#6B6B6B</color>
     <color name="colorAccent">#E5C05B</color>
+    <color name="lightGray">#F3F1F2</color>
 
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>

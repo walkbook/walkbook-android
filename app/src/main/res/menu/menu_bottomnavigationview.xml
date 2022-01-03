@@ -4,20 +4,20 @@
         android:id="@+id/mapItem"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_map_24"
-        android:title="@string/menu_map" />
+        android:title="@string/menuMap" />
     <item
         android:id="@+id/postItem"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_collections_24"
-        android:title="@string/menu_post" />
+        android:title="@string/menuPost" />
     <item
-        android:id="@+id/newItem"
+        android:id="@+id/createItem"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_create_24"
-        android:title="@string/menu_new" />
+        android:title="@string/menuCreate" />
     <item
         android:id="@+id/profileItem"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_book_24"
-        android:title="@string/menu_profile" />
+        android:title="@string/menuProfile" />
 </menu>

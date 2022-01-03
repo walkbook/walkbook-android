@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.postItem:
                         getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new FragmentPost()).commit();
                         break;
-                    case R.id.newItem:
+                    case R.id.createItem:
                         getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new FragmentNew()).commit();
                         break;
                     case R.id.profileItem:

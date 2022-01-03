@@ -1,21 +1,21 @@
 <resources>
-    <string name="app_name">Walkbook</string>
+    <string name="appName">Walkbook</string>
 
     <!-- toolbar -->
-    <string name="menu_search">검색</string>
-    <string name="menu_account">내 정보</string>
-    <string name="menu_logout">로그아웃</string>
+    <string name="menuSearch">검색</string>
+    <string name="menuAccount">내 정보</string>
+    <string name="menuLogout">로그아웃</string>
 
     <!-- bottom navigation bar -->
-    <string name="menu_map">지도로 보기</string>
-    <string name="menu_post">게시물로 보기</string>
-    <string name="menu_new">산책로 등록</string>
-    <string name="menu_profile">나의 워크북</string>
+    <string name="menuMap">지도로 보기</string>
+    <string name="menuPost">게시물로 보기</string>
+    <string name="menuCreate">산책로 등록</string>
+    <string name="menuProfile">나의 워크북</string>
 
     <!-- authentication -->
-    <string name="login_id_input">아이디를 입력하세요</string>
-    <string name="login_password_input">비밀번호를 입력하세요</string>
-    <string name="login_button">로그인</string>
-    <string name="join_button"><u>회원가입 하기</u></string>
+    <string name="loginInputID">아이디를 입력하세요</string>
+    <string name="loginInputPassword">비밀번호를 입력하세요</string>
+    <string name="loginButton">로그인</string>
+    <string name="joinButton"><u>회원가입 하기</u></string>
 
 </resources>
