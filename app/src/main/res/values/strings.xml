@@ -16,6 +16,12 @@
     <string name="loginInputID">아이디를 입력하세요</string>
     <string name="loginInputPassword">비밀번호를 입력하세요</string>
     <string name="loginButton">로그인</string>
-    <string name="joinButton"><u>회원가입 하기</u></string>
+    <string name="loginJoinButton"><u>회원가입하러 가기</u></string>
+
+    <string name="joinInputID">아이디를 입력하세요</string>
+    <string name="joinInputPassword">비밀번호를 입력하세요</string>
+    <string name="joinInputCheckPassword">비밀번호를 다시 입력하세요</string>
+    <string name="joinButton">회원가입</string>
+    <string name="joinLoginButton"><u>이미 아이디가 있어요!</u></string>
 
 </resources>
