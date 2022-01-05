@@ -17,12 +17,13 @@ public class JoinFragment extends Fragment {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO add alertDialog
                 LoginActivity activity = (LoginActivity) getActivity();
-                activity.onFragmentChanged(1);
+                activity.showMessage();
             }
         });
 
         return rootView;
     }
+
+
 }
