@@ -9,7 +9,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -37,23 +37,23 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        getSupportFragmentManager().beginTransaction().add(R.id.main_frame, new FragmentMap()).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.main_frame, new MapFragment()).commit();
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.mapItem:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new FragmentMap()).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new MapFragment()).commit();
                         break;
                     case R.id.postItem:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new FragmentPost()).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new PostFragment()).commit();
                         break;
                     case R.id.createItem:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new FragmentNew()).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new CreateFragment()).commit();
                         break;
                     case R.id.profileItem:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new FragmentProfile()).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new ProfileFragment()).commit();
                         break;
                 }
                 return true;
@@ -69,41 +69,40 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        TextView textView = (TextView)findViewById(R.id.textView);
         switch (item.getItemId()) {
             case R.id.action_search:
-                textView.setText("SEARCH");
-                return true ;
+                showToast("Search clicked");
+                return true;
             case R.id.action_account:
-                textView.setText("ACCOUNT");
-                return true ;
+                showToast("Account clicked");
+                return true;
             case R.id.action_logout:
-                textView.setText("LOGOUT");
-
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("Logout");
+                builder.setMessage("로그아웃하시겠습니까?");
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        String message = "You logged out.";
-                        textView.setText(message);
+                        showToast("Log out");
                     }
                 });
                 builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        String message = "You're not logging out.";
-                        textView.setText(message);
+
                     }
                 });
 
                 AlertDialog dialog = builder.create();
                 dialog.show();
 
-                return true ;
+                return true;
             default :
-                return super.onOptionsItemSelected(item) ;
+                return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void showToast(CharSequence msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
 
     private void getHashKey(){

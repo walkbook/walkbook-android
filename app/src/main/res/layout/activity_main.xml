@@ -26,14 +26,7 @@
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:gravity="center"
-            android:text="TEXT"
-            android:textColor="#689F38"
-            android:textSize="48sp" />
+
     </FrameLayout>
 
 

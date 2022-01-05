@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import net.daum.mf.map.api.MapView;
 
-public class FragmentMap extends Fragment {
+public class MapFragment extends Fragment {
     Context mContext;
     MapView mapView;
 
