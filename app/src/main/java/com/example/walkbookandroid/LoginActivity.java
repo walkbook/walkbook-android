@@ -1,6 +1,7 @@
 package com.example.walkbookandroid;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -25,5 +26,9 @@ public class LoginActivity extends AppCompatActivity {
         } else if (index == 1) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, loginFragment).commit();
         }
+    }
+
+    public void showToast(CharSequence msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
 }
