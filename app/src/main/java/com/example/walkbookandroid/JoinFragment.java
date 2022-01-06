@@ -18,12 +18,15 @@ import androidx.fragment.app.Fragment;
 public class JoinFragment extends Fragment {
     LoginActivity activity;
     String[] items = { "성별을 선택하세요", "남성", "여성" };
+    Spinner spinner;
+//    EditText editAddr;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_join, container, false);
         activity = (LoginActivity) rootView.getContext();
 
-        Spinner spinner = rootView.findViewById(R.id.join_sex_input);
+        // Spinner
+        spinner = rootView.findViewById(R.id.join_sex_input);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(rootView.getContext(), R.layout.join_spinner_item, items);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
@@ -33,8 +36,6 @@ public class JoinFragment extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 if (position == 1 || position == 2) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.black));
-                } else {
-                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textColor));
                 }
             }
 
@@ -44,6 +45,18 @@ public class JoinFragment extends Fragment {
             }
         });
 
+        // Address
+//        editAddr = activity.findViewById(R.id.join_address_input);
+//        editAddr.setFocusable(false);
+//
+//        editAddr.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
+
+        // Login Button
         Button loginButton = rootView.findViewById(R.id.login_button);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override

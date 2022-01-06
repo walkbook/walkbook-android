@@ -23,6 +23,7 @@
     <string name="joinInputCheckPassword">비밀번호를 다시 입력하세요</string>
     <string name="joinInputNickname">닉네임을 입력하세요</string>
     <string name="joinInputAge">나이를 입력하세요</string>
+    <string name="joinInputAddress">주소를 입력하세요</string>
     <string name="joinButton">회원가입</string>
     <string name="joinLoginButton"><u>이미 아이디가 있어요!</u></string>
 

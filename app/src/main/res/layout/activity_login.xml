@@ -5,11 +5,13 @@
     android:orientation="vertical"
     android:gravity="center"
     android:background="@color/white"
+    android:paddingVertical="50dp"
     >
         <ImageView
             android:id="@+id/logo"
             android:layout_width="150dp"
             android:layout_height="150dp"
+            android:layout_marginBottom="70dp"
             android:src="@drawable/logo"
             android:contentDescription="@string/appName" />
 
