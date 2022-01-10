@@ -17,6 +17,8 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
+        buildConfigField("String", "BASE_URL", properties.getProperty("base_url"))
+
         manifestPlaceholders = [KAKAO_API_KEY: properties.getProperty('kakao_api_key')]
     }
 
@@ -51,4 +53,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation files('libs/libDaumMapAndroid.jar')
     implementation 'com.yanzhenjie:permission:2.0.3'
+    implementation 'com.android.volley:volley:1.2.0'
+    implementation 'com.google.code.gson:gson:2.8.6'
 }
