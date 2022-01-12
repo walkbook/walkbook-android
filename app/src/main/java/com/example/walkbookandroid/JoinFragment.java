@@ -146,6 +146,7 @@ public class JoinFragment extends Fragment {
 
                     activity.makeLoginRequest(result.getData().getUsername(), editPassword.getText().toString());
                 } else {
+                    activity.showToast("이미 있는 아이디/닉네임입니다.");
                     Log.d("LOG_RETROFIT", "Join 실패, 결과 : " + response.toString());
                 }
             }
