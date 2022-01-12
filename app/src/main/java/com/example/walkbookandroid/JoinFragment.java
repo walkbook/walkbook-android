@@ -1,6 +1,7 @@
 package com.example.walkbookandroid;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -72,15 +73,15 @@ public class JoinFragment extends Fragment {
         });
 
         // Address
-//        editAddr = activity.findViewById(R.id.join_address_input);
-//        editAddr.setFocusable(false);
-//
-//        editAddr.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
+        editAddress.setFocusable(false);
+
+        editAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), WebviewActivity.class);
+                activity.resultLauncher.launch(intent);
+            }
+        });
 
         // Join Button
         Button joinButton = rootView.findViewById(R.id.join_button);

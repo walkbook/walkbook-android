@@ -7,6 +7,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import retrofit2.Call;
@@ -16,6 +20,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
+    public ActivityResultLauncher<Intent> resultLauncher;
+
     LoginFragment loginFragment;
     JoinFragment joinFragment;
 
@@ -28,6 +34,26 @@ public class LoginActivity extends AppCompatActivity {
         joinFragment = new JoinFragment();
 
         onFragmentChanged(1);
+
+        resultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if (result.getResultCode() == RESULT_OK){
+                            Intent intent = result.getData();
+//                            int CallType = intent.getIntExtra("CallType", 0);
+                            if (intent != null) {
+                                String data = intent.getExtras().getString("data");
+                                if (data != null) {
+                                    data = data.split(", ")[1];
+                                    data = data.split(" \\(")[0];
+                                    joinFragment.editAddress.setText(data);
+                                }
+                            }
+                        }
+                    }
+                });
     }
 
     public void onFragmentChanged(int index) {
