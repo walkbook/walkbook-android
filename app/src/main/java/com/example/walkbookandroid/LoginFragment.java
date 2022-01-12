@@ -1,6 +1,7 @@
 package com.example.walkbookandroid;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,22 @@ import android.widget.EditText;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginFragment extends Fragment {
     LoginActivity activity;
@@ -49,7 +66,10 @@ public class LoginFragment extends Fragment {
             }
         });
 
+        if (requestQueue == null) {
+            requestQueue = Volley.newRequestQueue(activity);
+        }
+
         return rootView;
     }
-
 }
