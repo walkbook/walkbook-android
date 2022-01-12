@@ -1,9 +1,19 @@
 package com.example.walkbookandroid;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
     LoginFragment loginFragment;
@@ -26,6 +36,52 @@ public class LoginActivity extends AppCompatActivity {
         } else if (index == 1) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, loginFragment).commit();
         }
+    }
+
+    public void makeLoginRequest(String id, String password) {
+        LoginRequest requestBody = new LoginRequest(id, password);
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://walkbook-backend.herokuapp.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        RetrofitService service = retrofit.create(RetrofitService.class);
+
+        Call<LoginResponse> call = service.login(requestBody);
+
+        call.enqueue(new Callback<LoginResponse>() {
+            @Override
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                if (response.isSuccessful()) {
+                    LoginResponse result = response.body();
+                    Log.d("LOG_RETROFIT", "Login 성공, userId : " + result.getData().getUserId() + "\n token : " + result.getToken());
+                    showToast(result.getData().getNickname() + " 님, 환영합니다!");
+
+                    SharedPreferences pref = getSharedPreferences("auth", Activity.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.putString("token", result.getToken());
+                    editor.putInt("userId", result.getData().getUserId());
+                    editor.putString("username", result.getData().getUsername());
+                    editor.putString("nickname", result.getData().getNickname());
+                    editor.putString("gender", result.getData().getGender());
+                    editor.putInt("age", result.getData().getAge());
+                    editor.putString("location", result.getData().getLocation());
+                    editor.putString("introduction", result.getData().getIntroduction());
+                    editor.commit();
+
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+                } else {
+                    showToast("아이디와 비밀번호를 확인하세요");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+                Log.e("LOG_RETROFIT", "Login 실패, message : " + t.getMessage());
+            }
+        });
     }
 
     public void showToast(CharSequence msg) {
