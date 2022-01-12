@@ -1,6 +1,9 @@
 package com.example.walkbookandroid;
 
+import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
@@ -152,7 +155,15 @@ public class MainActivity extends AppCompatActivity {
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        showToast("Log out");
+                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+
+                        SharedPreferences pref = getSharedPreferences("auth", Activity.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = pref.edit();
+                        editor.clear();
+                        editor.commit();
+
+                        startActivity(intent);
+                        finish();
                     }
                 });
                 builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
