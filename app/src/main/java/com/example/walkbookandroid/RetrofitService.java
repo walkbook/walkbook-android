@@ -9,4 +9,8 @@ public interface RetrofitService {
     @Headers({"Content-Type: application/json"})
     @POST("api/user/signup")
     Call<JoinResponse> join(@Body JoinRequest joinRequest);
+
+    @Headers({"Content-Type: application/json"})
+    @POST("api/user/signin")
+    Call<LoginResponse> login(@Body LoginRequest loginRequest);
 }

@@ -132,9 +132,9 @@ public class JoinFragment extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        RetrofitService service1 = retrofit.create(RetrofitService.class);
+        RetrofitService service = retrofit.create(RetrofitService.class);
 
-        Call<JoinResponse> call = service1.join(requestBody);
+        Call<JoinResponse> call = service.join(requestBody);
 
         call.enqueue(new Callback<JoinResponse>() {
             @Override
