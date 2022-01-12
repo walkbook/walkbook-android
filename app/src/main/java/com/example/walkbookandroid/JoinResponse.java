@@ -1,24 +1,36 @@
 package com.example.walkbookandroid;
 
-import com.google.gson.annotations.SerializedName;
-
 public class JoinResponse {
     boolean success;
     int code;
     String msg;
+    User data;
 
-    @SerializedName("data")
-    int data;
+    public class User {
+        int userId;
+        String username;
+        String nickname;
+        char gender;
+        int age;
+        String location;
+        String introduction;
 
-    public boolean isSuccess() {
-        return success;
+        public User(int userId, String username, String nickname, char gender, int age, String location, String introduction) {
+            this.userId = userId;
+            this.username = username;
+            this.nickname = nickname;
+            this.gender = gender;
+            this.age = age;
+            this.location = location;
+            this.introduction = introduction;
+        }
+
+        public int getUserId() {
+            return userId;
+        }
     }
 
-    public void setUserId(int userId) {
-        this.data = userId;
-    }
-
-    public int getUserId() {
+    public User getData() {
         return data;
     }
 }

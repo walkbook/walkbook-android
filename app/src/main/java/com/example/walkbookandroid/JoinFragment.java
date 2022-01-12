@@ -1,6 +1,7 @@
 package com.example.walkbookandroid;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -59,7 +60,8 @@ public class JoinFragment extends Fragment {
                 if (position == 1 || position == 2) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.black));
                     if (position == 1) editSex = "F";
-                    if (position == 2) editSex = "M";
+                    else if (position == 2) editSex = "M";
+                    else editSex = "";
                 }
             }
 
@@ -85,7 +87,19 @@ public class JoinFragment extends Fragment {
         joinButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO editText check
+                if (editId.getText().toString().equals("") || editPassword.getText().toString().equals("") ||
+                        editPassword2.getText().toString().equals("") ||
+                        editNickname.getText().toString().equals("") || editSex.equals("") ||
+                        editAge.getText().toString().equals("") || editAddress.getText().toString().equals("")) {
+                    activity.showToast("모두 입력해야 회원가입할 수 있습니다");
+                    return;
+                }
+
+                if ( !editPassword.getText().toString().equals(editPassword2.getText().toString()) ) {
+                    activity.showToast("패스워드가 서로 다릅니다");
+                    return;
+                }
+
                 makeRequest();
             }
         });
@@ -127,7 +141,13 @@ public class JoinFragment extends Fragment {
             public void onResponse(Call<JoinResponse> call, Response<JoinResponse> response) {
                 if (response.isSuccessful()) {
                     JoinResponse result = response.body();
-                    Log.d("LOG_RETROFIT", "Join 성공, 결과 : " + result.getUserId());
+                    Log.d("LOG_RETROFIT", "Join 성공, 결과 : " + result.getData().getUserId());
+                    activity.showToast("회원가입 완료!");
+
+                    // TODO login
+
+                    Intent intent = new Intent(activity, MainActivity.class);
+                    startActivity(intent);
                 } else {
                     Log.d("LOG_RETROFIT", "Join 실패, 결과 : " + response.toString());
                 }
@@ -142,7 +162,7 @@ public class JoinFragment extends Fragment {
 
     private void showAlertDialog(LoginActivity activity) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        builder.setMessage("입력된 값이 전부 사라집니다. 계속하시겠습니까?");
+        builder.setMessage("로그인 화면으로 돌아가겠습니까?");
 
         builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
             @Override
