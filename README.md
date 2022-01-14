@@ -1,2 +1,2 @@
-# Walkbook Android App 🤓
-Walkbook Android Application with Java
+# Walkbook Android 🏃‍♂️🏃‍♀️
+"함께 길을 읽다, 워크북"
