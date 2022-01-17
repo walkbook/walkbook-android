@@ -27,4 +27,13 @@
     <string name="joinButton">회원가입</string>
     <string name="joinLoginButton"><u>이미 아이디가 있어요!</u></string>
 
+
+    <!-- Create post -->
+    <string name="createInputTitle">산책로의 이름을 입력해주세요</string>
+    <string name="createInputDescription">산책로를 한 줄로 소개해주세요</string>
+    <string name="createInputStart">산책로의 출발위치를 적어주세요</string>
+    <string name="createInputEnd">산책로의 도착위치를 적어주세요</string>
+    <string name="createInputTMI">산책로에 대해 하고 싶은 말을 자유롭게 적어주세요</string>
+    <string name="createButton">만들기</string>
+
 </resources>
