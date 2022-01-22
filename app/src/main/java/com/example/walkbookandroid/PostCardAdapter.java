@@ -6,6 +6,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -57,6 +59,14 @@ public class PostCardAdapter extends RecyclerView.Adapter<PostCardAdapter.ViewHo
             titleView = itemView.findViewById(R.id.titleTextView);
             descriptionView = itemView.findViewById(R.id.descriptionTextView);
             authorNameView = itemView.findViewById(R.id.authorTextView);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    FragmentManager manager = ((AppCompatActivity) view.getContext()).getSupportFragmentManager();
+                    manager.beginTransaction().replace(R.id.main_frame, new PostDetailFragment()).addToBackStack(null).commit();
+                }
+            });
         }
 
         public void setItem(PostCard item) {
