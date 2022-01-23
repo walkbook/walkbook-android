@@ -16,14 +16,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="닉네임 : "
+            android:text="@string/profileLabelNickname"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="25sp" />
         <TextView
             android:id="@+id/nicknameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="닉네임"
             android:textColor="@color/textColor"
             android:textSize="25sp" />
 
@@ -31,14 +30,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:text="활동하는 장소 : "
+            android:text="@string/profileLabelAddress"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="25sp" />
         <TextView
             android:id="@+id/locationTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="장소"
             android:textColor="@color/textColor"
             android:textSize="25sp" />
 
@@ -46,14 +44,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:text="소개 : "
+            android:text="@string/profileLabelIntroduction"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="25sp" />
         <TextView
             android:id="@+id/introductionTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="소개"
             android:textColor="@color/textColor"
             android:textSize="25sp" />
 

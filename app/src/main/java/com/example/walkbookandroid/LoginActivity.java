@@ -42,7 +42,6 @@ public class LoginActivity extends AppCompatActivity {
                     public void onActivityResult(ActivityResult result) {
                         if (result.getResultCode() == RESULT_OK){
                             Intent intent = result.getData();
-//                            int CallType = intent.getIntExtra("CallType", 0);
                             if (intent != null) {
                                 String data = intent.getExtras().getString("data");
                                 if (data != null) {

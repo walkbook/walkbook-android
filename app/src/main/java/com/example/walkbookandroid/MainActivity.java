@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new PostFragment()).addToBackStack(null).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new PostFragment()).commit();
 
                 // TODO handle search
                 showToast("searching : " + query);
@@ -181,5 +181,4 @@ public class MainActivity extends AppCompatActivity {
                 })
                 .start();
     }
-
 }

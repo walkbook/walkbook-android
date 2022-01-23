@@ -1,5 +1,6 @@
 package com.example.walkbookandroid;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,7 +8,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -49,6 +49,8 @@ public class PostCardAdapter extends RecyclerView.Adapter<PostCardAdapter.ViewHo
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
+        int id;
+        int authorId;
         TextView titleView;
         TextView descriptionView;
         TextView authorNameView;
@@ -63,13 +65,24 @@ public class PostCardAdapter extends RecyclerView.Adapter<PostCardAdapter.ViewHo
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    FragmentManager manager = ((AppCompatActivity) view.getContext()).getSupportFragmentManager();
-                    manager.beginTransaction().replace(R.id.main_frame, new PostDetailFragment()).addToBackStack(null).commit();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("id", id);
+                    bundle.putInt("authorId", authorId);
+
+                    PostDetailFragment postDetailFragment = new PostDetailFragment();
+                    postDetailFragment.setArguments(bundle);
+
+                    ((AppCompatActivity) view.getContext()).getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.main_frame, postDetailFragment)
+                            .addToBackStack(null)
+                            .commit();
                 }
             });
         }
 
         public void setItem(PostCard item) {
+            id = item.getId();
+            authorId = item.getAuthorId();
             titleView.setText(item.getTitle());
             descriptionView.setText(item.getDescription());
             authorNameView.setText(item.getAuthorName());

@@ -31,6 +31,7 @@
     <string name="createTitle">새 산책로 만들기</string>
 
     <string name="createLabelTitle">산책로 이름</string>
+    <string name="createLabelAuthor">작성자</string>
     <string name="createLabelDescription">산책로 소개</string>
     <string name="createLabelStart">출발위치</string>
     <string name="createLabelEnd">도착위치</string>
@@ -42,5 +43,10 @@
     <string name="createInputEnd">산책로의 도착위치를 적어주세요</string>
     <string name="createInputTMI">산책로에 대해 하고 싶은 말을 자유롭게 적어주세요</string>
     <string name="createButton">만들기</string>
+
+    <!-- Profile -->
+    <string name="profileLabelNickname">닉네임</string>
+    <string name="profileLabelAddress">활동하는 장소</string>
+    <string name="profileLabelIntroduction">소개</string>
 
 </resources>

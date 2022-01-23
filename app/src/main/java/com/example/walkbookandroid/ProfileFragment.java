@@ -3,6 +3,7 @@ package com.example.walkbookandroid;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ProfileFragment extends Fragment {
     MainActivity activity;
@@ -29,13 +36,56 @@ public class ProfileFragment extends Fragment {
 
         SharedPreferences pref = activity.getSharedPreferences("auth", Activity.MODE_PRIVATE);
 
-        if ((pref != null) && (pref.contains("token"))) {
-            String[] addrStr = pref.getString("location", "").split(" ");
-            nicknameTextView.setText(pref.getString("nickname", ""));
-            locationTextView.setText(addrStr[0] + " " + addrStr[1]);
-            introductionTextView.setText(pref.getString("introduction", ""));
+        if (getArguments() == null) {   // My profile
+            if ((pref != null) && (pref.contains("token"))) {
+                String[] addrStr = pref.getString("location", "").split(" ");
+                nicknameTextView.setText(pref.getString("nickname", ""));
+                locationTextView.setText(addrStr[0] + " " + addrStr[1]);
+                introductionTextView.setText(pref.getString("introduction", ""));
+            }
+        } else {    // Other's profile
+            int userId = getArguments().getInt("userId");
+            getUserInfo(userId);
         }
 
         return rootView;
+    }
+
+    private void getUserInfo(int userId) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://walkbook-backend.herokuapp.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        RetrofitService service = retrofit.create(RetrofitService.class);
+
+        Call<UserResponse> call = service.getUser(Integer.toString(userId));
+
+        call.enqueue(new Callback<UserResponse>() {
+            @Override
+            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+                if (response.isSuccessful()) {
+                    UserResponse result = response.body();
+
+                    if (result == null) {
+                        activity.showToast("서버와의 통신에 문제가 있습니다");
+                        return;
+                    }
+
+                    Log.d("LOG_RETROFIT", "Get user info 성공, userId : " + result.getData().getUserId());
+
+                    nicknameTextView.setText(result.getData().getNickname());
+                    locationTextView.setText(result.getData().getLocation());
+                    introductionTextView.setText(result.getData().getIntroduction());
+                } else {
+                    activity.showToast("서버와의 통신에 문제가 있습니다");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserResponse> call, Throwable t) {
+                Log.e("LOG_RETROFIT", "Get user 실패, message : " + t.getMessage());
+            }
+        });
     }
 }

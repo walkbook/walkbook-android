@@ -24,6 +24,7 @@ public class PostFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         PostCardAdapter adapter = new PostCardAdapter();
 
+        // TODO set posts
         adapter.addItem(new PostCard(1, "title1", "description1", 1, "author1"));
         adapter.addItem(new PostCard(2, "title2", "description2", 2, "author2"));
         adapter.addItem(new PostCard(3, "title3", "description3", 3, "author3"));
