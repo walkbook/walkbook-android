@@ -17,6 +17,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -40,22 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
         getHashKey();
 
-        AndPermission.with(this)
-                .runtime()
-                .permission(Permission.ACCESS_FINE_LOCATION, Permission.ACCESS_COARSE_LOCATION)
-                .onGranted(new Action<List<String>>() {
-                    @Override
-                    public void onAction(List<String> data) {
-                        showToast("허용된 권한 개수: " + data.size());
-                    }
-                })
-                .onDenied(new Action<List<String>>() {
-                    @Override
-                    public void onAction(List<String> data) {
-                        showToast("거부된 권한 개수: " + data.size());
-                    }
-                })
-                .start();
+        addLocationPermission();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -88,6 +74,25 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_toolbar, menu);
+
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new PostFragment()).addToBackStack(null).commit();
+
+                // TODO handle search
+                showToast("searching : " + query);
+
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return true;
+            }
+        });
+
         return true;
     }
 
@@ -137,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
 
-    private void getHashKey(){
+    private void getHashKey() {
         PackageInfo packageInfo = null;
         try {
             packageInfo = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
@@ -156,6 +161,25 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("KeyHash", "Unable to get MessageDigest. signature=" + signature, e);
             }
         }
+    }
+
+    private void addLocationPermission() {
+        AndPermission.with(this)
+                .runtime()
+                .permission(Permission.ACCESS_FINE_LOCATION, Permission.ACCESS_COARSE_LOCATION)
+                .onGranted(new Action<List<String>>() {
+                    @Override
+                    public void onAction(List<String> data) {
+                        showToast("허용된 권한 개수: " + data.size());
+                    }
+                })
+                .onDenied(new Action<List<String>>() {
+                    @Override
+                    public void onAction(List<String> data) {
+                        showToast("거부된 권한 개수: " + data.size());
+                    }
+                })
+                .start();
     }
 
 }
