@@ -30,7 +30,7 @@ public class CreateFragment extends Fragment {
         editEnd = rootView.findViewById(R.id.endEditText);
         editTmi = rootView.findViewById(R.id.tmiEditText);
 
-        createButton = activity.findViewById(R.id.createButton);
+        createButton = rootView.findViewById(R.id.createButton);
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -43,5 +43,6 @@ public class CreateFragment extends Fragment {
 
     private void makeRequest() {
         // TODO create
+        activity.showToast("createButton clicked");
     }
 }
