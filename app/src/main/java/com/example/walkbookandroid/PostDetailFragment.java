@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 
 public class PostDetailFragment extends Fragment {
     MainActivity activity;
+    Map map;
 
     int id;
     int authorId;
@@ -28,6 +29,14 @@ public class PostDetailFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_post_detail, container, false);
         activity = (MainActivity) container.getContext();
 
+        // Map
+        map = new Map(activity);
+        ViewGroup mapViewContainer = rootView.findViewById(R.id.map_view);
+        mapViewContainer.addView(map.getMapView());
+
+        map.startLocationService();
+
+        // EditTexts
         titleTextView = rootView.findViewById(R.id.titleText);
         descriptionTextView = rootView.findViewById(R.id.descriptionText);
         startTextView = rootView.findViewById(R.id.startText);
@@ -59,5 +68,11 @@ public class PostDetailFragment extends Fragment {
         });
 
         return rootView;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        ((ViewGroup) map.getMapView().getParent()).removeView(map.getMapView());
     }
 }

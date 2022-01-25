@@ -25,4 +25,10 @@ public class MapFragment extends Fragment {
 
         return rootView;
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        ((ViewGroup) map.getMapView().getParent()).removeView(map.getMapView());
+    }
 }

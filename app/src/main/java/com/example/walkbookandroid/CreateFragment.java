@@ -13,6 +13,8 @@ import androidx.fragment.app.Fragment;
 
 public class CreateFragment extends Fragment {
     MainActivity activity;
+    Map map;
+
     EditText editTitle;
     EditText editDescription;
     EditText editStart;
@@ -23,6 +25,13 @@ public class CreateFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_create, container, false);
         activity = (MainActivity) container.getContext();
+
+        // Map
+        map = new Map(activity);
+        ViewGroup mapViewContainer = rootView.findViewById(R.id.map_view);
+        mapViewContainer.addView(map.getMapView());
+
+        map.startLocationService();
 
         editTitle = rootView.findViewById(R.id.titleEditText);
         editDescription = rootView.findViewById(R.id.descriptionEditText);
@@ -44,5 +53,11 @@ public class CreateFragment extends Fragment {
     private void makeRequest() {
         // TODO create
         activity.showToast("createButton clicked");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        ((ViewGroup) map.getMapView().getParent()).removeView(map.getMapView());
     }
 }
