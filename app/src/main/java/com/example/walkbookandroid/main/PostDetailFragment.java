@@ -20,7 +20,7 @@ public class PostDetailFragment extends Fragment {
     MainActivity activity;
     MapViewContainer mapViewContainer;
 
-    int id;
+    int postId;
     int authorId;
     TextView titleTextView;
     Button authorButton;
@@ -54,10 +54,19 @@ public class PostDetailFragment extends Fragment {
         deleteButton = rootView.findViewById(R.id.deleteButton);
 
         if (getArguments() != null) {
-            id = getArguments().getInt("authorId");
-            authorId = getArguments().getInt("authorId");
+            postId = getArguments().getInt("postId");
 
-            // TODO get post info
+            if (getArguments().getString("title") == null) {
+                makePostRequest();
+            } else {
+                authorId = getArguments().getInt("authorId");
+                authorButton.setText(getArguments().getString("authorName"));
+                titleTextView.setText(getArguments().getString("title"));
+                descriptionTextView.setText(getArguments().getString("description"));
+                startTextView.setText(getArguments().getString("startLocation"));
+                endTextView.setText(getArguments().getString("finishLocation"));
+                tmiTextView.setText(getArguments().getString("tmi"));
+            }
         }
 
         handleAuthorButton();
@@ -70,6 +79,10 @@ public class PostDetailFragment extends Fragment {
     public void onPause() {
         super.onPause();
         ((ViewGroup) mapViewContainer.getMapView().getParent()).removeView(mapViewContainer.getMapView());
+    }
+
+    public void makePostRequest() {
+        // TODO get post info
     }
 
     private void handleAuthorButton() {
@@ -99,7 +112,7 @@ public class PostDetailFragment extends Fragment {
                     @Override
                     public void onClick(View view) {
                         Bundle bundle = new Bundle();
-                        bundle.putInt("postId", id);
+                        bundle.putInt("postId", postId);
                         bundle.putString("title", titleTextView.getText().toString());
                         bundle.putString("description", descriptionTextView.getText().toString());
                         bundle.putString("startLocation", startTextView.getText().toString());
