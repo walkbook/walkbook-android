@@ -1,4 +1,4 @@
-package com.example.walkbookandroid;
+package com.example.walkbookandroid.main;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,6 +10,8 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.example.walkbookandroid.R;
 
 public class CreateFragment extends Fragment {
     MainActivity activity;

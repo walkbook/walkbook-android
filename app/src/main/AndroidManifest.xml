@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WalkbookAndroid">
         <activity
-            android:name=".IntroActivity"
+            android:name=".intro.IntroActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,15 +26,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".auth.AuthActivity"
             android:exported="true">
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".main.MainActivity"
             android:exported="true">
         </activity>
         <activity
-            android:name=".WebviewActivity"
+            android:name=".auth.WebviewActivity"
             android:exported="true">
         </activity>
         <meta-data android:name="com.kakao.sdk.AppKey" android:value="${KAKAO_API_KEY}" />

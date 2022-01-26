@@ -1,4 +1,4 @@
-package com.example.walkbookandroid;
+package com.example.walkbookandroid.main;
 
 import com.google.gson.annotations.SerializedName;
 

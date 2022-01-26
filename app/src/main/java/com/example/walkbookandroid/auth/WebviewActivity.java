@@ -1,4 +1,4 @@
-package com.example.walkbookandroid;
+package com.example.walkbookandroid.auth;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.walkbookandroid.R;
 
 public class WebviewActivity extends AppCompatActivity {
     private WebView browser;

@@ -1,4 +1,4 @@
-package com.example.walkbookandroid;
+package com.example.walkbookandroid.main;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+
+import com.example.walkbookandroid.R;
 
 public class PostDetailFragment extends Fragment {
     MainActivity activity;

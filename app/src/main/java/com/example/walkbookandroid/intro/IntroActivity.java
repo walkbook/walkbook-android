@@ -1,10 +1,14 @@
-package com.example.walkbookandroid;
+package com.example.walkbookandroid.intro;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+
+import com.example.walkbookandroid.auth.AuthActivity;
+import com.example.walkbookandroid.main.MainActivity;
+import com.example.walkbookandroid.R;
 
 public class IntroActivity extends Activity {
 
@@ -22,7 +26,7 @@ public class IntroActivity extends Activity {
                 if ((pref != null) && (pref.contains("token"))) {
                     intent = new Intent(IntroActivity.this, MainActivity.class);
                 } else {
-                    intent = new Intent(IntroActivity.this, LoginActivity.class);
+                    intent = new Intent(IntroActivity.this, AuthActivity.class);
                 }
 
                 startActivity(intent);

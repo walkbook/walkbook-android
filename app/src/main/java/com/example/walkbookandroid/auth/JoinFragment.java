@@ -1,4 +1,4 @@
-package com.example.walkbookandroid;
+package com.example.walkbookandroid.auth;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,6 +18,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import com.example.walkbookandroid.R;
+import com.example.walkbookandroid.UserRetrofitService;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -25,7 +28,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class JoinFragment extends Fragment {
-    LoginActivity activity;
+    AuthActivity activity;
     String[] items = { "성별을 선택하세요", "남성", "여성" };
     Spinner spinner;
 
@@ -39,7 +42,7 @@ public class JoinFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_join, container, false);
-        activity = (LoginActivity) rootView.getContext();
+        activity = (AuthActivity) rootView.getContext();
 
         editId = rootView.findViewById(R.id.join_id_input);
         editPassword = rootView.findViewById(R.id.join_password_input);
@@ -133,7 +136,7 @@ public class JoinFragment extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        RetrofitService service = retrofit.create(RetrofitService.class);
+        UserRetrofitService service = retrofit.create(UserRetrofitService.class);
 
         Call<JoinResponse> call = service.join(requestBody);
 
@@ -159,7 +162,7 @@ public class JoinFragment extends Fragment {
         });
     }
 
-    private void showAlertDialog(LoginActivity activity) {
+    private void showAlertDialog(AuthActivity activity) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setMessage("로그인 화면으로 돌아가겠습니까?");
 

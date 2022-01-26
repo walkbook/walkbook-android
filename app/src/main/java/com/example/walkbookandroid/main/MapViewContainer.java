@@ -1,4 +1,4 @@
-package com.example.walkbookandroid;
+package com.example.walkbookandroid.main;
 
 import android.content.Context;
 import android.location.Location;

@@ -1,4 +1,4 @@
-package com.example.walkbookandroid;
+package com.example.walkbookandroid.auth;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -11,14 +11,16 @@ import android.widget.EditText;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.walkbookandroid.R;
+
 public class LoginFragment extends Fragment {
-    LoginActivity activity;
+    AuthActivity activity;
     EditText editId;
     EditText editPassword;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_login, container, false);
-        activity = (LoginActivity) rootView.getContext();
+        activity = (AuthActivity) rootView.getContext();
 
         editId = rootView.findViewById(R.id.login_id_input);
         editPassword = rootView.findViewById(R.id.login_password_input);
@@ -45,7 +47,7 @@ public class LoginFragment extends Fragment {
         joinButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LoginActivity activity = (LoginActivity) getActivity();
+                AuthActivity activity = (AuthActivity) getActivity();
                 if (activity == null) {
                     Log.e("Login", "failed to load LoginActivity");
                     return;

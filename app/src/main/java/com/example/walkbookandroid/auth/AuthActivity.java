@@ -1,4 +1,4 @@
-package com.example.walkbookandroid;
+package com.example.walkbookandroid.auth;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -13,13 +13,17 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.walkbookandroid.UserRetrofitService;
+import com.example.walkbookandroid.main.MainActivity;
+import com.example.walkbookandroid.R;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class LoginActivity extends AppCompatActivity {
+public class AuthActivity extends AppCompatActivity {
     public ActivityResultLauncher<Intent> resultLauncher;
 
     LoginFragment loginFragment;
@@ -71,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        RetrofitService service = retrofit.create(RetrofitService.class);
+        UserRetrofitService service = retrofit.create(UserRetrofitService.class);
 
         Call<LoginResponse> call = service.login(requestBody);
 
@@ -95,7 +99,7 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putString("introduction", result.getData().getIntroduction());
                     editor.commit();
 
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    Intent intent = new Intent(AuthActivity.this, MainActivity.class);
                     startActivity(intent);
                 } else {
                     showToast("아이디와 비밀번호를 확인하세요");

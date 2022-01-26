@@ -1,4 +1,4 @@
-package com.example.walkbookandroid;
+package com.example.walkbookandroid.main;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,6 +10,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.walkbookandroid.PostCard;
+import com.example.walkbookandroid.PostCardAdapter;
+import com.example.walkbookandroid.R;
 
 public class PostFragment extends Fragment {
     MainActivity activity;

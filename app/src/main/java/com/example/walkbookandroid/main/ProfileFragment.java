@@ -1,4 +1,4 @@
-package com.example.walkbookandroid;
+package com.example.walkbookandroid.main;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
@@ -12,6 +12,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.example.walkbookandroid.R;
+import com.example.walkbookandroid.UserRetrofitService;
+import com.example.walkbookandroid.auth.UserResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -57,7 +61,7 @@ public class ProfileFragment extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        RetrofitService service = retrofit.create(RetrofitService.class);
+        UserRetrofitService service = retrofit.create(UserRetrofitService.class);
 
         Call<UserResponse> call = service.getUser(Integer.toString(userId));
 
