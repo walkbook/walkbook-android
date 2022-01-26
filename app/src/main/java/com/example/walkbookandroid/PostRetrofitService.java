@@ -5,6 +5,7 @@ import com.example.walkbookandroid.main.PostResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
@@ -18,4 +19,7 @@ public interface PostRetrofitService {
     @Headers({"Content-Type: application/json"})
     @POST("api/post/create")
     Call<PostResponse> create(@Header("X-AUTH-TOKEN") String token, @Body PostRequest postRequest);
+
+    @DELETE("api/post/{id}/delete")
+    Call<BaseResponse> delete(@Header("X-AUTH-TOKEN") String token, @Path("id") String postId);
 }

@@ -1,6 +1,7 @@
 package com.example.walkbookandroid.main;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,9 +13,11 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.example.walkbookandroid.BaseResponse;
 import com.example.walkbookandroid.PostRetrofitService;
 import com.example.walkbookandroid.R;
 
@@ -177,7 +180,7 @@ public class PostDetailFragment extends Fragment {
                 deleteButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        // TODO delete request
+                        showAlertDialog();
                     }
                 });
             } else {
@@ -185,5 +188,72 @@ public class PostDetailFragment extends Fragment {
                 deleteButton.setVisibility(View.GONE);
             }
         }
+    }
+
+    private void showAlertDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setMessage("정말 삭제하시겠습니까?");
+
+        builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                makeDeleteRequest();
+            }
+        });
+
+        builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void makeDeleteRequest() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://walkbook-backend.herokuapp.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        PostRetrofitService service = retrofit.create(PostRetrofitService.class);
+
+        SharedPreferences pref = activity.getSharedPreferences("auth", Activity.MODE_PRIVATE);
+        if ((pref == null) || !(pref.contains("token"))) {
+            activity.showToast("로그인 상태에 문제가 있습니다");
+            return;
+        }
+
+        Call<BaseResponse> call = service.delete(pref.getString("token", ""), Integer.toString(postId));
+
+        call.enqueue(new Callback<BaseResponse>() {
+            @Override
+            public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
+                if (response.isSuccessful()) {
+                    BaseResponse result = response.body();
+
+                    if (result == null) {
+                        activity.showToast("서버와의 통신에 문제가 있습니다");
+                        return;
+                    }
+
+                    activity.showToast("삭제되었습니다");
+
+                    activity.getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.main_frame, new PostFragment())
+                            .addToBackStack(null)
+                            .commit();
+                } else {
+                    activity.showToast(response.toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse> call, Throwable t) {
+                Log.e("LOG_RETROFIT", "Get post 실패, message : " + t.getMessage());
+            }
+        });
     }
 }
