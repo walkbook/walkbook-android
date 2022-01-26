@@ -9,10 +9,15 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:id="@+id/map_view"
-            android:layout_width="match_parent"
-            android:layout_height="400dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:text="@string/editTitle"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="40sp"
+            android:layout_gravity="center_horizontal"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -22,33 +27,17 @@
             android:textColor="@color/colorPrimaryDark"
             android:textSize="15sp" />
 
-        <TextView
-            android:id="@+id/titleText"
+        <EditText
+            android:id="@+id/titleEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="제목"
+            android:background="@color/lightGray"
+            android:ems="10"
+            android:hint="@string/createInputTitle"
             android:padding="15dp"
-            android:textColor="@color/black" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="@string/createLabelAuthor"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="15sp" />
-
-        <Button
-            android:id="@+id/authorButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="작성자"
-            android:paddingVertical="15dp"
-            android:paddingHorizontal="0dp"
             android:textColor="@color/black"
-            android:background="@android:color/transparent" />
+            android:textColorHint="@color/textColor" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -58,14 +47,17 @@
             android:textColor="@color/colorPrimaryDark"
             android:textSize="15sp" />
 
-        <TextView
-            android:id="@+id/descriptionText"
+        <EditText
+            android:id="@+id/descriptionEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:ems="10"
             android:padding="15dp"
-            android:text="소개"
-            android:textColor="@color/black" />
+            android:hint="@string/createInputDescription"
+            android:background="@color/lightGray"
+            android:textColor="@color/black"
+            android:textColorHint="@color/textColor" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -75,14 +67,17 @@
             android:textColor="@color/colorPrimaryDark"
             android:textSize="15sp" />
 
-        <TextView
-            android:id="@+id/startText"
+        <EditText
+            android:id="@+id/startEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:ems="10"
             android:padding="15dp"
-            android:text="출발위치"
-            android:textColor="@color/black" />
+            android:hint="@string/createInputStart"
+            android:background="@color/lightGray"
+            android:textColor="@color/black"
+            android:textColorHint="@color/textColor" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -92,14 +87,17 @@
             android:textColor="@color/colorPrimaryDark"
             android:textSize="15sp" />
 
-        <TextView
-            android:id="@+id/endText"
+        <EditText
+            android:id="@+id/endEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:ems="10"
             android:padding="15dp"
-            android:text="도착위치"
-            android:textColor="@color/black" />
+            android:hint="@string/createInputEnd"
+            android:background="@color/lightGray"
+            android:textColor="@color/black"
+            android:textColorHint="@color/textColor" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -109,47 +107,29 @@
             android:textColor="@color/colorPrimaryDark"
             android:textSize="15sp" />
 
-        <TextView
-            android:id="@+id/tmiText"
+        <EditText
+            android:id="@+id/tmiEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:ems="10"
             android:padding="15dp"
-            android:text="산책로 TMI"
-            android:textColor="@color/black" />
+            android:hint="@string/createInputTMI"
+            android:background="@color/lightGray"
+            android:textColor="@color/black"
+            android:textColorHint="@color/textColor" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/editButton"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_horizontal"
-            android:layout_marginTop="30dp">
-            <Button
-                android:id="@+id/editButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:background="@color/colorAccent"
-                android:paddingHorizontal="20dp"
-                android:paddingVertical="10dp"
-                android:text="@string/editButton"
-                android:textColor="@color/white"
-                android:layout_gravity="center_horizontal" />
-
-            <Button
-                android:id="@+id/deleteButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:layout_marginLeft="30dp"
-                android:background="@color/colorAccent"
-                android:paddingHorizontal="20dp"
-                android:paddingVertical="10dp"
-                android:text="@string/deleteButton"
-                android:textColor="@color/white"
-                android:layout_gravity="center_horizontal" />
-
-        </LinearLayout>
+            android:layout_marginTop="50dp"
+            android:background="@color/colorAccent"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="10dp"
+            android:text="@string/editButton"
+            android:textColor="@color/white"
+            android:layout_gravity="center_horizontal" />
 
     </LinearLayout>
 

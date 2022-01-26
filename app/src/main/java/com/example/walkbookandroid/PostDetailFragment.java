@@ -1,5 +1,7 @@
 package com.example.walkbookandroid;
 
+import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +27,9 @@ public class PostDetailFragment extends Fragment {
     TextView endTextView;
     TextView tmiTextView;
 
+    Button editButton;
+    Button deleteButton;
+
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_post_detail, container, false);
         activity = (MainActivity) container.getContext();
@@ -36,12 +41,15 @@ public class PostDetailFragment extends Fragment {
 
         map.startLocationService();
 
-        // EditTexts
         titleTextView = rootView.findViewById(R.id.titleText);
         descriptionTextView = rootView.findViewById(R.id.descriptionText);
         startTextView = rootView.findViewById(R.id.startText);
         endTextView = rootView.findViewById(R.id.endText);
         tmiTextView = rootView.findViewById(R.id.tmiText);
+
+        authorButton = rootView.findViewById(R.id.authorButton);
+        editButton = rootView.findViewById(R.id.editButton);
+        deleteButton = rootView.findViewById(R.id.deleteButton);
 
         if (getArguments() != null) {
             id = getArguments().getInt("authorId");
@@ -50,7 +58,19 @@ public class PostDetailFragment extends Fragment {
             // TODO get post info
         }
 
-        authorButton = rootView.findViewById(R.id.authorButton);
+        handleAuthorButton();
+        handleEditDeleteButton();
+
+        return rootView;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        ((ViewGroup) map.getMapView().getParent()).removeView(map.getMapView());
+    }
+
+    private void handleAuthorButton() {
         authorButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,13 +86,44 @@ public class PostDetailFragment extends Fragment {
                         .commit();
             }
         });
-
-        return rootView;
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        ((ViewGroup) map.getMapView().getParent()).removeView(map.getMapView());
+    private void handleEditDeleteButton() {
+        SharedPreferences pref = activity.getSharedPreferences("auth", Activity.MODE_PRIVATE);
+
+        if ((pref != null) && (pref.contains("token"))) {
+            if (authorId == pref.getInt("userId", 0)) {
+                editButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("postId", id);
+                        bundle.putString("title", titleTextView.getText().toString());
+                        bundle.putString("description", descriptionTextView.getText().toString());
+                        bundle.putString("startLocation", startTextView.getText().toString());
+                        bundle.putString("finishLocation", endTextView.getText().toString());
+                        bundle.putString("tmi", tmiTextView.getText().toString());
+
+                        EditFragment editFragment = new EditFragment();
+                        editFragment.setArguments(bundle);
+
+                        ((AppCompatActivity) view.getContext()).getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.main_frame, editFragment)
+                                .addToBackStack(null)
+                                .commit();
+                    }
+                });
+
+                deleteButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        // TODO delete request
+                    }
+                });
+            } else {
+                editButton.setVisibility(View.GONE);
+                deleteButton.setVisibility(View.GONE);
+            }
+        }
     }
 }
