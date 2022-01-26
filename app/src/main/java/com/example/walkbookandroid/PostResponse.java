@@ -1,5 +1,5 @@
 package com.example.walkbookandroid;
 
-public class CreateEditResponse extends DataResponse<Post> {
+public class PostResponse extends DataResponse<Post> {
     
 }
