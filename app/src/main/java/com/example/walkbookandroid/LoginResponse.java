@@ -1,17 +1,9 @@
 package com.example.walkbookandroid;
 
-public class LoginResponse {
-    boolean success;
-    int code;
-    String msg;
+public class LoginResponse extends DataResponse<User> {
     String token;
-    User data;
 
     public String getToken() {
         return token;
-    }
-
-    public User getData() {
-        return data;
     }
 }

@@ -1,8 +1,13 @@
 package com.example.walkbookandroid;
 
-public class BaseResponse<T> {
-    String success;
+public class BaseResponse {
+    boolean success;
     int code;
     String msg;
-    T data;
+
+    public boolean isSuccessful() { return success; }
+
+    public int getCode() { return code; }
+
+    public String getMsg() { return msg; }
 }
