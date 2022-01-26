@@ -2,8 +2,8 @@ package com.example.walkbookandroid;
 
 public class Post {
     int postId;
-    int userId;
-    String username;
+    int authorId;
+    String authorName;
     String title;
     String description;
     String startLocation;
@@ -12,11 +12,11 @@ public class Post {
     String createdDate;
     String modifiedDate;
 
-    public Post(int postId, int userId, String username, String title, String description,
+    public Post(int postId, int authorId, String authorName, String title, String description,
                 String startLocation, String finishLocation, String tmi, String createdDate, String modifiedDate) {
         this.postId = postId;
-        this.userId = userId;
-        this.username = username;
+        this.authorId = authorId;
+        this.authorName = authorName;
         this.title = title;
         this.description = description;
         this.startLocation = startLocation;
@@ -30,12 +30,12 @@ public class Post {
         return postId;
     }
 
-    public int getUserId() {
-        return userId;
+    public int getAuthorId() {
+        return authorId;
     }
 
-    public String getUsername() {
-        return username;
+    public String getAuthorName() {
+        return authorName;
     }
 
     public String getTitle() {

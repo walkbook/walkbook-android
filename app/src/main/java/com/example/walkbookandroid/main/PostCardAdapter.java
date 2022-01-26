@@ -1,4 +1,4 @@
-package com.example.walkbookandroid;
+package com.example.walkbookandroid.main;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,7 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.walkbookandroid.main.PostDetailFragment;
+import com.example.walkbookandroid.PostCard;
+import com.example.walkbookandroid.R;
 
 import java.util.ArrayList;
 
@@ -68,8 +69,7 @@ public class PostCardAdapter extends RecyclerView.Adapter<PostCardAdapter.ViewHo
                 @Override
                 public void onClick(View view) {
                     Bundle bundle = new Bundle();
-                    bundle.putInt("id", id);
-                    bundle.putInt("authorId", authorId);
+                    bundle.putInt("postId", id);
 
                     PostDetailFragment postDetailFragment = new PostDetailFragment();
                     postDetailFragment.setArguments(bundle);

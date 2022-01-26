@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.walkbookandroid.PostCard;
-import com.example.walkbookandroid.PostCardAdapter;
 import com.example.walkbookandroid.R;
 
 public class PostFragment extends Fragment {
