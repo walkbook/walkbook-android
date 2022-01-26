@@ -3,6 +3,7 @@ package com.example.walkbookandroid.main;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.example.walkbookandroid.PostRetrofitService;
 import com.example.walkbookandroid.R;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PostDetailFragment extends Fragment {
     MainActivity activity;
@@ -82,7 +90,44 @@ public class PostDetailFragment extends Fragment {
     }
 
     public void makePostRequest() {
-        // TODO get post info
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://walkbook-backend.herokuapp.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        PostRetrofitService service = retrofit.create(PostRetrofitService.class);
+
+        Call<PostResponse> call = service.getPost(Integer.toString(postId));
+
+        call.enqueue(new Callback<PostResponse>() {
+            @Override
+            public void onResponse(Call<PostResponse> call, Response<PostResponse> response) {
+                if (response.isSuccessful()) {
+                    PostResponse result = response.body();
+
+                    if (result == null) {
+                        activity.showToast("서버와의 통신에 문제가 있습니다");
+                        return;
+                    }
+
+                    authorId = result.getData().getAuthorId();
+                    authorButton.setText(result.getData().getAuthorName());
+                    titleTextView.setText(result.getData().getTitle());
+                    descriptionTextView.setText(result.getData().getDescription());
+                    startTextView.setText(result.getData().getStartLocation());
+                    endTextView.setText(result.getData().getFinishLocation());
+                    tmiTextView.setText(result.getData().getTmi());
+
+                } else {
+                    activity.showToast(response.toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PostResponse> call, Throwable t) {
+                Log.e("LOG_RETROFIT", "Get post 실패, message : " + t.getMessage());
+            }
+        });
     }
 
     private void handleAuthorButton() {

@@ -27,7 +27,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="제목"
             android:padding="15dp"
             android:textColor="@color/black" />
 
@@ -44,7 +43,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="작성자"
             android:paddingVertical="15dp"
             android:paddingHorizontal="0dp"
             android:textColor="@color/black"
@@ -64,7 +62,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:padding="15dp"
-            android:text="소개"
             android:textColor="@color/black" />
 
         <TextView
@@ -81,7 +78,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:padding="15dp"
-            android:text="출발위치"
             android:textColor="@color/black" />
 
         <TextView
@@ -98,7 +94,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:padding="15dp"
-            android:text="도착위치"
             android:textColor="@color/black" />
 
         <TextView
@@ -115,7 +110,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:padding="15dp"
-            android:text="산책로 TMI"
             android:textColor="@color/black" />
 
         <LinearLayout
