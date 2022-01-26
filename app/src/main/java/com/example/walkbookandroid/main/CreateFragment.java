@@ -56,8 +56,8 @@ public class CreateFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (title.getText().toString().equals("") || description.getText().toString().equals("") ||
-                        start.getText().toString().equals("") || end.getText().toString().equals("") || tmi.equals("")) {
-                    activity.showToast("모두 입력해야 회원가입할 수 있습니다");
+                        start.getText().toString().equals("") || end.getText().toString().equals("") || tmi.getText().toString().equals("")) {
+                    activity.showToast("모두 입력해야 산책로를 생성할 수 있습니다");
                     return;
                 }
                 makeCreateRequest();
