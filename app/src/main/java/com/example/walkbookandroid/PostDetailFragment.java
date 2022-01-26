@@ -16,7 +16,7 @@ import androidx.fragment.app.Fragment;
 
 public class PostDetailFragment extends Fragment {
     MainActivity activity;
-    Map map;
+    MapViewContainer mapViewContainer;
 
     int id;
     int authorId;
@@ -35,11 +35,11 @@ public class PostDetailFragment extends Fragment {
         activity = (MainActivity) container.getContext();
 
         // Map
-        map = new Map(activity);
+        mapViewContainer = new MapViewContainer(activity);
         ViewGroup mapViewContainer = rootView.findViewById(R.id.map_view);
-        mapViewContainer.addView(map.getMapView());
+        mapViewContainer.addView(this.mapViewContainer.getMapView());
 
-        map.startLocationService();
+        this.mapViewContainer.startLocationService();
 
         titleTextView = rootView.findViewById(R.id.titleText);
         descriptionTextView = rootView.findViewById(R.id.descriptionText);
@@ -67,7 +67,7 @@ public class PostDetailFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        ((ViewGroup) map.getMapView().getParent()).removeView(map.getMapView());
+        ((ViewGroup) mapViewContainer.getMapView().getParent()).removeView(mapViewContainer.getMapView());
     }
 
     private void handleAuthorButton() {

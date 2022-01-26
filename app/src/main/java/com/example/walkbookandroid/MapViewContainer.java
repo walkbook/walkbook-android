@@ -10,12 +10,12 @@ import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
 
-public class Map {
+public class MapViewContainer {
     MainActivity activity;
     MapView mapView;
     MapPOIItem currentMarker;
 
-    public Map(MainActivity activity) {
+    public MapViewContainer(MainActivity activity) {
         this.activity = activity;
         this.mapView = new MapView(activity);
     }

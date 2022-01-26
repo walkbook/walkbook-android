@@ -11,17 +11,17 @@ import androidx.fragment.app.Fragment;
 
 public class MapFragment extends Fragment {
     MainActivity activity;
-    Map map;
+    MapViewContainer mapViewContainer;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = (ViewGroup) inflater.inflate(R.layout.fragment_map, container, false);
         activity = (MainActivity) rootView.getContext();
 
-        map = new Map(activity);
+        mapViewContainer = new MapViewContainer(activity);
         ViewGroup mapViewContainer = rootView.findViewById(R.id.map_view);
-        mapViewContainer.addView(map.getMapView());
+        mapViewContainer.addView(this.mapViewContainer.getMapView());
 
-        map.startLocationService();
+        this.mapViewContainer.startLocationService();
 
         return rootView;
     }
@@ -29,6 +29,6 @@ public class MapFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        ((ViewGroup) map.getMapView().getParent()).removeView(map.getMapView());
+        ((ViewGroup) mapViewContainer.getMapView().getParent()).removeView(mapViewContainer.getMapView());
     }
 }
