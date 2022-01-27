@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,24 +14,42 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.walkbookandroid.PostCard;
 import com.example.walkbookandroid.R;
 
-import java.util.ArrayList;
+import java.util.List;
 
-public class PostCardAdapter extends RecyclerView.Adapter<PostCardAdapter.ViewHolder> {
-    ArrayList<PostCard> items = new ArrayList<>();
+public class PostCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private final int VIEW_TYPE_ITEM = 0;
+    private final int VIEW_TYPE_LOADING = 1;
+
+    private List<PostCard> items;
+
+    public PostCardAdapter(List<PostCard> items) {
+        this.items = items;
+    }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View itemView = inflater.inflate(R.layout.postcard, parent, false);
-
-        return new ViewHolder(itemView);
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if (viewType == VIEW_TYPE_ITEM) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.postcard, parent, false);
+            return new ItemViewHolder(view);
+        } else {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.postcard_loading, parent, false);
+            return new LoadingViewHolder(view);
+        }
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        PostCard item = items.get(position);
-        holder.setItem(item);
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if (holder instanceof ItemViewHolder) {
+            populateItemRows((ItemViewHolder) holder, position);
+        } else if (holder instanceof LoadingViewHolder) {
+            showLoadingView((LoadingViewHolder) holder, position);
+        }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return items.get(position) == null ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
     }
 
     @Override
@@ -43,22 +62,23 @@ public class PostCardAdapter extends RecyclerView.Adapter<PostCardAdapter.ViewHo
 
     }
 
-    public void setItems(ArrayList<PostCard> items) {
-        this.items = items;
+    private void showLoadingView(LoadingViewHolder holder, int position) {
+
     }
 
-    public void setItem(int position, PostCard item) {
-        items.set(position, item);
+    private void populateItemRows(ItemViewHolder holder, int position) {
+        PostCard item = items.get(position);
+        holder.setItem(item);
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    private static class ItemViewHolder extends RecyclerView.ViewHolder {
         int id;
         int authorId;
         TextView titleView;
         TextView descriptionView;
         TextView authorNameView;
 
-        public ViewHolder(View itemView) {
+        public ItemViewHolder(View itemView) {
             super(itemView);
 
             titleView = itemView.findViewById(R.id.titleTextView);
@@ -90,5 +110,14 @@ public class PostCardAdapter extends RecyclerView.Adapter<PostCardAdapter.ViewHo
             authorNameView.setText(item.getAuthorName());
         }
 
+    }
+
+    private static class LoadingViewHolder extends RecyclerView.ViewHolder {
+        private ProgressBar progressBar;
+
+        public LoadingViewHolder(@NonNull View itemView) {
+            super(itemView);
+            progressBar = itemView.findViewById(R.id.progressBar);
+        }
     }
 }
