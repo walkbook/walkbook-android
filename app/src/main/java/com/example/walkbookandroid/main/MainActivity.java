@@ -58,8 +58,8 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.mapItem:
                         getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new MapFragment()).commit();
                         return true;
-                    case R.id.postItem:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new PostFragment()).commit();
+                    case R.id.postsItem:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new PostsFragment()).commit();
                         return true;
                     case R.id.createItem:
                         getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new CreateFragment()).commit();
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new PostFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new PostsFragment()).commit();
 
                 // TODO handle search
                 showToast("searching : " + query);

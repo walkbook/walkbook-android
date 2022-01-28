@@ -6,7 +6,7 @@
         android:icon="@drawable/ic_baseline_map_24"
         android:title="@string/menuMap" />
     <item
-        android:id="@+id/postItem"
+        android:id="@+id/postsItem"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_collections_24"
         android:title="@string/menuPost" />

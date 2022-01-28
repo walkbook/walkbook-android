@@ -17,7 +17,7 @@ import com.example.walkbookandroid.R;
 
 import java.util.ArrayList;
 
-public class PostFragment extends Fragment {
+public class PostsFragment extends Fragment {
     private MainActivity activity;
     private RecyclerView recyclerView;
     private PostCardAdapter adapter;
@@ -26,7 +26,7 @@ public class PostFragment extends Fragment {
     private boolean isLoading = false;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_post, container, false);
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_posts, container, false);
         activity = (MainActivity) rootView.getContext();
 
         recyclerView = rootView.findViewById(R.id.recyclerView);
