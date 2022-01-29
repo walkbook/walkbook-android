@@ -1,22 +1,22 @@
 package com.example.walkbookandroid;
 
 public class PostCard {
-    int id;
+    int postId;
     String title;
     String description;
     int authorId;
     String authorName;
 
-    public PostCard(int id, String title, String description, int authorId, String authorName) {
-        this.id = id;
+    public PostCard(int postId, String title, String description, int authorId, String authorName) {
+        this.postId = postId;
         this.title = title;
         this.description = description;
         this.authorId = authorId;
         this.authorName = authorName;
     }
 
-    public int getId() {
-        return id;
+    public int getPostId() {
+        return postId;
     }
 
     public String getTitle() {
