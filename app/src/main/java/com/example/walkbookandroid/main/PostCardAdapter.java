@@ -72,7 +72,7 @@ public class PostCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     private static class ItemViewHolder extends RecyclerView.ViewHolder {
-        int id;
+        int postId;
         int authorId;
         TextView titleView;
         TextView descriptionView;
@@ -89,7 +89,7 @@ public class PostCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 @Override
                 public void onClick(View view) {
                     Bundle bundle = new Bundle();
-                    bundle.putInt("postId", id);
+                    bundle.putInt("postId", postId);
 
                     PostDetailFragment postDetailFragment = new PostDetailFragment();
                     postDetailFragment.setArguments(bundle);
@@ -103,7 +103,7 @@ public class PostCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
 
         public void setItem(PostCard item) {
-            id = item.getId();
+            postId = item.getPostId();
             authorId = item.getAuthorId();
             titleView.setText(item.getTitle());
             descriptionView.setText(item.getDescription());

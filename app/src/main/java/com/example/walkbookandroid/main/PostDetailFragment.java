@@ -242,7 +242,7 @@ public class PostDetailFragment extends Fragment {
                     activity.showToast("삭제되었습니다");
 
                     activity.getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.main_frame, new PostFragment())
+                            .replace(R.id.main_frame, new PostsFragment())
                             .addToBackStack(null)
                             .commit();
                 } else {
