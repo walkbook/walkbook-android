@@ -226,7 +226,7 @@ public class PostDetailFragment extends Fragment {
             return;
         }
 
-        Call<BaseResponse> call = service.delete(pref.getString("token", ""), Integer.toString(postId));
+        Call<BaseResponse> call = service.delete(pref.getString("token", ""), postId);
 
         call.enqueue(new Callback<BaseResponse>() {
             @Override

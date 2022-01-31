@@ -23,8 +23,8 @@ public interface PostRetrofitService {
 
     @Headers({"Content-Type: application/json"})
     @PUT("api/post/{id}/edit")
-    Call<PostResponse> edit(@Header("X-AUTH-TOKEN") String token, @Path("id") String postId, @Body PostRequest postRequest);
+    Call<PostResponse> edit(@Header("X-AUTH-TOKEN") String token, @Path("id") int postId, @Body PostRequest postRequest);
 
     @DELETE("api/post/{id}/delete")
-    Call<BaseResponse> delete(@Header("X-AUTH-TOKEN") String token, @Path("id") String postId);
+    Call<BaseResponse> delete(@Header("X-AUTH-TOKEN") String token, @Path("id") int postId);
 }
