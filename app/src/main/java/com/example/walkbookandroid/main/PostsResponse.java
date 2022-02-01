@@ -4,16 +4,31 @@ import com.example.walkbookandroid.PostCard;
 
 public class PostsResponse {
     PostCard[] content;
-    String pageable;
+    Pageable pageable;
     boolean last;
     int totalElements;
     int totalPages;
     int size;
     int number;
-    String sort;
+    Sort sort;
     boolean first;
     int numberOfElements;
     boolean empty;
 
     public PostCard[] getData() { return content; }
+
+    class Pageable {
+        Sort sort;
+        int offset;
+        int pageNumber;
+        int pageSize;
+        boolean paged;
+        boolean unpaged;
+    }
+
+    class Sort {
+        boolean empty;
+        boolean sorted;
+        boolean unsorted;
+    }
 }

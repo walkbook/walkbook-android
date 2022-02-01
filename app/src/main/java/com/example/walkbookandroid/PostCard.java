@@ -34,4 +34,10 @@ public class PostCard {
     public String getAuthorName() {
         return authorName;
     }
+
+    @Override
+    public String toString() {
+        return "PostCard [id=" + postId + ", title=" + title + ", description=" + description + ", authorId=" + authorId + ", authorName=" + authorName + "]";
+    }
+
 }

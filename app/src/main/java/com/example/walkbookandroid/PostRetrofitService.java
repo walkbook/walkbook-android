@@ -2,6 +2,7 @@ package com.example.walkbookandroid;
 
 import com.example.walkbookandroid.main.PostRequest;
 import com.example.walkbookandroid.main.PostResponse;
+import com.example.walkbookandroid.main.PostsResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -12,8 +13,12 @@ import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface PostRetrofitService {
+    @GET("api/post/page")
+    Call<PostsResponse> getPosts(@Query("page") int pageNum, @Query("size") int size, @Query("sort") String sort);
+
     @GET("api/post/{id}")
     Call<PostResponse> getPost(@Path("id") String postId);
 
