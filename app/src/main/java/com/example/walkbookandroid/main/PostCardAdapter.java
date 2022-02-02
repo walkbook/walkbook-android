@@ -57,11 +57,6 @@ public class PostCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return items.size();
     }
 
-    public void addItem(PostCard item) {
-        items.add(item);
-
-    }
-
     private void showLoadingView(LoadingViewHolder holder, int position) {
 
     }

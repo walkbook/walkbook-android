@@ -17,6 +17,8 @@ public class PostsResponse {
 
     public PostCard[] getData() { return content; }
 
+    public int getTotalPages() { return totalPages; }
+
     class Pageable {
         Sort sort;
         int offset;

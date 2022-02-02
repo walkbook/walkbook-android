@@ -33,6 +33,8 @@ public class PostsFragment extends Fragment {
     private ArrayList<PostCard> items = new ArrayList<>();
 
     private boolean isLoading = false;
+    private int totalPages = 0;
+    private int currentPage = 0;
 
     private final int PAGE_SIZE = 10;
 
@@ -43,43 +45,11 @@ public class PostsFragment extends Fragment {
         recyclerView = rootView.findViewById(R.id.recyclerView);
 
         makePostsRequestWithPageNumber(0);
-        initAdaptor();
-        initScrollListener();
 
         return rootView;
     }
 
-    private void initAdaptor() {
-        adapter = new PostCardAdapter(items);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(layoutManager);
-    }
-
-    private void initScrollListener() {
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
-
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-
-                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-
-                if (!isLoading) {
-                    if (layoutManager != null && layoutManager.findLastCompletelyVisibleItemPosition() == items.size() - 1) {
-                        loadMore();
-                        isLoading = true;
-                    }
-                }
-            }
-        });
-    }
-
-    private void loadMore() {
+    private void loadPosts(int pageNumber) {
         items.add(null);
         adapter.notifyItemInserted(items.size() - 1);
 
@@ -90,18 +60,12 @@ public class PostsFragment extends Fragment {
                 items.remove(items.size() - 1);
                 int scrollPosition = items.size();
                 adapter.notifyItemRemoved(scrollPosition);
-                int currentSize = scrollPosition;
-                int nextLimit = currentSize + 10;
 
-                while (currentSize < nextLimit) {
-                    items.add(new PostCard(currentSize+1, "title"+(currentSize+1), "description"+(currentSize+1), 1, "author1"));
-                    currentSize++;
+                if (totalPages > pageNumber) {
+                    makePostsRequestWithPageNumber(pageNumber);
                 }
-
-                adapter.notifyDataSetChanged();
-                isLoading = false;
             }
-        }, 2000);
+        }, 3000);
     }
 
     private void makePostsRequestWithPageNumber(int pageNumber) {
@@ -126,6 +90,18 @@ public class PostsFragment extends Fragment {
                     }
 
                     Log.d("LOG_RETROFIT", "Get posts 성공, posts : " + Arrays.toString(result.getData()));
+
+                    totalPages = result.getTotalPages();
+                    items.addAll(Arrays.asList(result.getData()));
+                    currentPage++;
+
+                    if (pageNumber == 0) {
+                        initAdaptor();
+                        initScrollListener();
+                    }
+
+                    adapter.notifyDataSetChanged();
+                    isLoading = false;
                 } else {
                     activity.showToast("서버와의 통신에 문제가 있습니다");
                 }
@@ -134,6 +110,36 @@ public class PostsFragment extends Fragment {
             @Override
             public void onFailure(Call<PostsResponse> call, Throwable t) {
                 Log.e("LOG_RETROFIT", "Get posts 실패, message : " + t.getMessage());
+            }
+        });
+    }
+
+    private void initAdaptor() {
+        adapter = new PostCardAdapter(items);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(layoutManager);
+    }
+
+    private void initScrollListener() {
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+
+                if (!isLoading) {
+                    if (layoutManager != null && layoutManager.findLastCompletelyVisibleItemPosition() == items.size() - 1) {
+                        loadPosts(currentPage);
+                        isLoading = true;
+                    }
+                }
             }
         });
     }
