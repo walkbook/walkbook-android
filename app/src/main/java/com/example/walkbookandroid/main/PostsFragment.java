@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,6 +29,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PostsFragment extends Fragment {
     private MainActivity activity;
+    private ProgressBar progressBar;
     private RecyclerView recyclerView;
     private PostCardAdapter adapter;
     private ArrayList<PostCard> items = new ArrayList<>();
@@ -42,11 +44,23 @@ public class PostsFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_posts, container, false);
         activity = (MainActivity) rootView.getContext();
 
+        progressBar = rootView.findViewById(R.id.progressBar);
         recyclerView = rootView.findViewById(R.id.recyclerView);
+
+        hideProgressBar();
 
         makePostsRequestWithPageNumber(0);
 
         return rootView;
+    }
+
+    private void hideProgressBar() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable(){
+            public void run(){
+                progressBar.setVisibility(View.GONE);
+            }
+        },2000);
     }
 
     private void loadPosts(int pageNumber) {
@@ -65,7 +79,7 @@ public class PostsFragment extends Fragment {
                     makePostsRequestWithPageNumber(pageNumber);
                 }
             }
-        }, 3000);
+        }, 2000);
     }
 
     private void makePostsRequestWithPageNumber(int pageNumber) {
