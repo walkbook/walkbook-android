@@ -83,8 +83,16 @@ public class MainActivity extends AppCompatActivity {
             public boolean onQueryTextSubmit(String query) {
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new PostsFragment()).commit();
 
-                // TODO handle search
-                showToast("searching : " + query);
+                Bundle bundle = new Bundle();
+                bundle.putString("query", query);
+
+                PostsFragment postsFragment = new PostsFragment();
+                postsFragment.setArguments(bundle);
+
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.main_frame, postsFragment)
+                        .addToBackStack(null)
+                        .commit();
 
                 return true;
             }

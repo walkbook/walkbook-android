@@ -34,6 +34,7 @@ public class PostsFragment extends Fragment {
     private PostCardAdapter adapter;
     private ArrayList<PostCard> items = new ArrayList<>();
 
+    private String query = null;
     private boolean isLoading = false;
     private int totalPages = 0;
     private int currentPage = 0;
@@ -48,6 +49,10 @@ public class PostsFragment extends Fragment {
         recyclerView = rootView.findViewById(R.id.recyclerView);
 
         hideProgressBar();
+
+        if (getArguments() != null) {
+            query = getArguments().getString("query");
+        }
 
         makePostsRequestWithPageNumber(0);
 
@@ -90,7 +95,15 @@ public class PostsFragment extends Fragment {
 
         PostRetrofitService service = retrofit.create(PostRetrofitService.class);
 
-        Call<PostsResponse> call = service.getPosts(pageNumber, PAGE_SIZE, "createdDate");
+        Call<PostsResponse> call;
+
+        if (query == null) {
+            call = service.getPosts(pageNumber, PAGE_SIZE, "createdDate");
+        } else {
+            // TODO request search
+            activity.showToast("searching : " + query);
+            return;
+        }
 
         call.enqueue(new Callback<PostsResponse>() {
             @Override
