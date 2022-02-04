@@ -65,7 +65,7 @@ public class MapViewContainer {
             double longitude = location.getLongitude();
 
             mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude), true);
-            activity.showToast("latitude : " + latitude + ", longitude : " + longitude);
+            changeCurrentMarkerLocation(latitude, longitude);
         }
 
         public void onProviderDisabled(String provider) { }
@@ -73,5 +73,17 @@ public class MapViewContainer {
         public void onProviderEnabled(String provider) { }
 
         public void onStatusChanged(String provider, int status, Bundle extras) { }
+    }
+
+    public void changeCurrentMarkerLocation(double latitude, double longitude) {
+        mapView.removePOIItem(currentMarker);
+
+        currentMarker = new MapPOIItem();
+        currentMarker.setItemName("현재 위치");
+        currentMarker.setMapPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude));
+        currentMarker.setMarkerType(MapPOIItem.MarkerType.BluePin); // 기본으로 제공하는 BluePin 마커 모양.
+        currentMarker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
+
+        mapView.addPOIItem(currentMarker);
     }
 }
