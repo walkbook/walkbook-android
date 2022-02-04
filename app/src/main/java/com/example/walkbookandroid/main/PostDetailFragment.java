@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -43,6 +44,13 @@ public class PostDetailFragment extends Fragment {
     Button editButton;
     Button deleteButton;
 
+    Button likeButton;
+    Button unlikeButton;
+    EditText commentEditText;
+    Button commentButton;
+
+    boolean liked = false;
+
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_post_detail, container, false);
         activity = (MainActivity) container.getContext();
@@ -64,6 +72,11 @@ public class PostDetailFragment extends Fragment {
         editButton = rootView.findViewById(R.id.editButton);
         deleteButton = rootView.findViewById(R.id.deleteButton);
 
+        likeButton = rootView.findViewById(R.id.likeButton);
+        unlikeButton = rootView.findViewById(R.id.unlikeButton);
+        commentEditText = rootView.findViewById(R.id.commentEditText);
+        commentButton = rootView.findViewById(R.id.commentButton);
+
         if (getArguments() != null) {
             postId = getArguments().getInt("postId");
 
@@ -80,8 +93,10 @@ public class PostDetailFragment extends Fragment {
             }
         }
 
-        handleAuthorButton();
-        handleEditDeleteButton();
+        addListenerToAuthorButton();
+        addListenerToEditAndDeleteButton();
+        addListenerToLikeButton();
+        addListenerToCommentButton();
 
         return rootView;
     }
@@ -133,7 +148,7 @@ public class PostDetailFragment extends Fragment {
         });
     }
 
-    private void handleAuthorButton() {
+    private void addListenerToAuthorButton() {
         authorButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -151,7 +166,7 @@ public class PostDetailFragment extends Fragment {
         });
     }
 
-    private void handleEditDeleteButton() {
+    private void addListenerToEditAndDeleteButton() {
         SharedPreferences pref = activity.getSharedPreferences("auth", Activity.MODE_PRIVATE);
 
         if ((pref != null) && (pref.contains("token"))) {
@@ -255,5 +270,54 @@ public class PostDetailFragment extends Fragment {
                 Log.e("LOG_RETROFIT", "Get post 실패, message : " + t.getMessage());
             }
         });
+    }
+
+    private void addListenerToLikeButton() {
+        likeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                unlikeButton.setVisibility(View.VISIBLE);
+                likeButton.setVisibility(View.GONE);
+
+                liked = !liked;
+                makeLikeRequest();
+            }
+        });
+
+        unlikeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                likeButton.setVisibility(View.VISIBLE);
+                unlikeButton.setVisibility(View.GONE);
+
+                liked = !liked;
+                makeLikeRequest();
+            }
+        });
+    }
+
+    private void makeLikeRequest() {
+        // TODO
+        if (liked) activity.showToast("좋아요");
+        else activity.showToast("좋아요 취소");
+    }
+
+    private void addListenerToCommentButton() {
+        commentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String comment = commentEditText.getText().toString();
+                makeCommentRequest(comment);
+
+                commentEditText.setText("");
+
+                // TODO show comment right away
+            }
+        });
+    }
+
+    private void makeCommentRequest(String comment) {
+        // TODO
+        activity.showToast("댓글 \"" + comment + "\"이 등록되었습니다!");
     }
 }

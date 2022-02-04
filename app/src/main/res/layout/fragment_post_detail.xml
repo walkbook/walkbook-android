@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="20dp">
@@ -142,8 +143,67 @@
                 android:text="@string/deleteButton"
                 android:textColor="@color/white"
                 android:layout_gravity="center_horizontal" />
-
         </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="100dp">
+
+            <LinearLayout
+                android:id="@+id/likeButtonContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginRight="10dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/commentEditText" >
+                <Button
+                    android:id="@+id/likeButton"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/ic_baseline_favorite_border_24"
+                    />
+
+                <Button
+                    android:id="@+id/unlikeButton"
+                    android:visibility="gone"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/ic_baseline_favorite_24"
+                    />
+            </LinearLayout>
+
+
+            <EditText
+                android:id="@+id/commentEditText"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                app:layout_constraintLeft_toRightOf="@+id/likeButtonContainer"
+                app:layout_constraintRight_toLeftOf="@+id/commentButton"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginEnd="5dp"
+                android:background="@color/lightGray"
+                android:hint="@string/commentInput"
+                android:paddingHorizontal="10dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/textColor" />
+
+            <Button
+                android:id="@+id/commentButton"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                app:layout_constraintLeft_toRightOf="@+id/commentEditText"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:padding="0dp"
+                android:text="@string/commentButton"
+                android:textColor="@color/white" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
 

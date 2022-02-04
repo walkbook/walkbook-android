@@ -48,6 +48,10 @@
     <string name="editButton">수정하기</string>
     <string name="deleteButton">삭제하기</string>
 
+    <!-- Post Detail -->
+    <string name="commentInput">댓글을 입력해주세요</string>
+    <string name="commentButton">작성</string>
+
     <!-- Profile -->
     <string name="profileLabelNickname">닉네임</string>
     <string name="profileLabelAddress">활동하는 장소</string>
