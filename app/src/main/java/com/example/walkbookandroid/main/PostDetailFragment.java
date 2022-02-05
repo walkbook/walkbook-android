@@ -17,10 +17,15 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.walkbookandroid.BaseResponse;
+import com.example.walkbookandroid.Comment;
 import com.example.walkbookandroid.PostRetrofitService;
 import com.example.walkbookandroid.R;
+
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,6 +36,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class PostDetailFragment extends Fragment {
     MainActivity activity;
     MapViewContainer mapViewContainer;
+    CommentAdapter commentAdapter;
+    RecyclerView commentRecyclerView;
 
     int postId;
     int authorId;
@@ -51,6 +58,8 @@ public class PostDetailFragment extends Fragment {
 
     boolean liked = false;
 
+    ArrayList<Comment> comments = new ArrayList<>();
+
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_post_detail, container, false);
         activity = (MainActivity) container.getContext();
@@ -61,6 +70,8 @@ public class PostDetailFragment extends Fragment {
         mapViewContainer.addView(this.mapViewContainer.getMapView());
 
         this.mapViewContainer.startLocationService();
+
+        commentRecyclerView = rootView.findViewById(R.id.commentRecyclerView);
 
         titleTextView = rootView.findViewById(R.id.titleText);
         descriptionTextView = rootView.findViewById(R.id.descriptionText);
@@ -97,6 +108,8 @@ public class PostDetailFragment extends Fragment {
         addListenerToEditAndDeleteButton();
         addListenerToLikeButton();
         addListenerToCommentButton();
+
+        initCommentAdaptor();
 
         return rootView;
     }
@@ -319,5 +332,17 @@ public class PostDetailFragment extends Fragment {
     private void makeCommentRequest(String comment) {
         // TODO
         activity.showToast("댓글 \"" + comment + "\"이 등록되었습니다!");
+    }
+
+    private void initCommentAdaptor() {
+        // TODO delete dummy data
+        comments.add(new Comment(1, 1, "user1", "ㅁㄴㅇㄹㄴㅇ"));
+        comments.add(new Comment(2, 1, "user1", "ㅁㄴㅇㄹㄴㅇ"));
+        comments.add(new Comment(3, 1, "user1", "ㅁㄴㅇㄹㄴㅇ"));
+
+        commentAdapter = new CommentAdapter(comments);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
+        commentRecyclerView.setAdapter(commentAdapter);
+        commentRecyclerView.setLayoutManager(layoutManager);
     }
 }
