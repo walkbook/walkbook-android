@@ -32,9 +32,9 @@ public class PostsFragment extends Fragment {
     private ProgressBar progressBar;
     private RecyclerView recyclerView;
     private PostCardAdapter adapter;
-    private ArrayList<PostCard> items = new ArrayList<>();
 
-    private String query = null;
+    private ArrayList<PostCard> postCards = new ArrayList<>();
+    private String searchQuery = null;
     private boolean isLoading = false;
     private int totalPages = 0;
     private int currentPage = 0;
@@ -51,7 +51,7 @@ public class PostsFragment extends Fragment {
         hideProgressBar();
 
         if (getArguments() != null) {
-            query = getArguments().getString("query");
+            searchQuery = getArguments().getString("query");
         }
 
         makePostsRequestWithPageNumber(0);
@@ -69,15 +69,15 @@ public class PostsFragment extends Fragment {
     }
 
     private void loadPosts(int pageNumber) {
-        items.add(null);
-        adapter.notifyItemInserted(items.size() - 1);
+        postCards.add(null);
+        adapter.notifyItemInserted(postCards.size() - 1);
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                items.remove(items.size() - 1);
-                int scrollPosition = items.size();
+                postCards.remove(postCards.size() - 1);
+                int scrollPosition = postCards.size();
                 adapter.notifyItemRemoved(scrollPosition);
 
                 if (totalPages > pageNumber) {
@@ -97,11 +97,11 @@ public class PostsFragment extends Fragment {
 
         Call<PostsResponse> call;
 
-        if (query == null) {
+        if (searchQuery == null) {
             call = service.getPosts(pageNumber, PAGE_SIZE, "createdDate");
         } else {
             // TODO request search
-            activity.showToast("searching : " + query);
+            activity.showToast("searching : " + searchQuery);
             return;
         }
 
@@ -119,7 +119,7 @@ public class PostsFragment extends Fragment {
                     Log.d("LOG_RETROFIT", "Get posts 성공, posts : " + Arrays.toString(result.getData()));
 
                     totalPages = result.getTotalPages();
-                    items.addAll(Arrays.asList(result.getData()));
+                    postCards.addAll(Arrays.asList(result.getData()));
                     currentPage++;
 
                     if (pageNumber == 0) {
@@ -142,7 +142,7 @@ public class PostsFragment extends Fragment {
     }
 
     private void initAdaptor() {
-        adapter = new PostCardAdapter(items);
+        adapter = new PostCardAdapter(postCards);
         LinearLayoutManager layoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(layoutManager);
@@ -162,7 +162,7 @@ public class PostsFragment extends Fragment {
                 LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
 
                 if (!isLoading) {
-                    if (layoutManager != null && layoutManager.findLastCompletelyVisibleItemPosition() == items.size() - 1) {
+                    if (layoutManager != null && layoutManager.findLastCompletelyVisibleItemPosition() == postCards.size() - 1) {
                         loadPosts(currentPage);
                         isLoading = true;
                     }

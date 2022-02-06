@@ -26,26 +26,26 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ProfileFragment extends Fragment {
     MainActivity activity;
 
-    TextView nicknameTextView;
-    TextView locationTextView;
-    TextView introductionTextView;
+    TextView nickname;
+    TextView location;
+    TextView introduction;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_profile, container, false);
         activity = (MainActivity) container.getContext();
 
-        nicknameTextView = rootView.findViewById(R.id.nicknameTextView);
-        locationTextView = rootView.findViewById(R.id.locationTextView);
-        introductionTextView = rootView.findViewById(R.id.introductionTextView);
+        nickname = rootView.findViewById(R.id.nicknameTextView);
+        location = rootView.findViewById(R.id.locationTextView);
+        introduction = rootView.findViewById(R.id.introductionTextView);
 
         SharedPreferences pref = activity.getSharedPreferences("auth", Activity.MODE_PRIVATE);
 
         if (getArguments() == null) {   // My profile
             if ((pref != null) && (pref.contains("token"))) {
                 String[] addrStr = pref.getString("location", "").split(" ");
-                nicknameTextView.setText(pref.getString("nickname", ""));
-                locationTextView.setText(addrStr[0] + " " + addrStr[1]);
-                introductionTextView.setText(pref.getString("introduction", ""));
+                nickname.setText(pref.getString("nickname", ""));
+                location.setText(addrStr[0] + " " + addrStr[1]);
+                introduction.setText(pref.getString("introduction", ""));
             }
         } else {    // Other's profile
             int userId = getArguments().getInt("userId");
@@ -78,9 +78,9 @@ public class ProfileFragment extends Fragment {
 
                     Log.d("LOG_RETROFIT", "Get user info 성공, userId : " + result.getData().getUserId());
 
-                    nicknameTextView.setText(result.getData().getNickname());
-                    locationTextView.setText(result.getData().getLocation());
-                    introductionTextView.setText(result.getData().getIntroduction());
+                    nickname.setText(result.getData().getNickname());
+                    location.setText(result.getData().getLocation());
+                    introduction.setText(result.getData().getIntroduction());
                 } else {
                     activity.showToast("서버와의 통신에 문제가 있습니다");
                 }

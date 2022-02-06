@@ -15,31 +15,31 @@ import com.example.walkbookandroid.R;
 
 public class LoginFragment extends Fragment {
     AuthActivity activity;
-    EditText editId;
-    EditText editPassword;
+    EditText username;
+    EditText password;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_login, container, false);
         activity = (AuthActivity) rootView.getContext();
 
-        editId = rootView.findViewById(R.id.login_id_input);
-        editPassword = rootView.findViewById(R.id.login_password_input);
+        username = rootView.findViewById(R.id.login_id_input);
+        password = rootView.findViewById(R.id.login_password_input);
 
         Button loginButton = rootView.findViewById(R.id.login_button);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (editId.getText().toString().equals("")) {
+                if (username.getText().toString().equals("")) {
                     activity.showToast("아이디를 입력하세요");
                     return;
                 }
 
-                if (editPassword.getText().toString().equals("")) {
+                if (password.getText().toString().equals("")) {
                     activity.showToast("비밀번호를 입력하세요");
                     return;
                 }
 
-                activity.makeLoginRequest(editId.getText().toString(), editPassword.getText().toString());
+                activity.makeLoginRequest(username.getText().toString(), password.getText().toString());
             }
         });
 

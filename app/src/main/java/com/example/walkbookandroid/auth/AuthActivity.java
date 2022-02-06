@@ -51,7 +51,7 @@ public class AuthActivity extends AppCompatActivity {
                                 if (data != null) {
                                     data = data.split(", ")[1];
                                     data = data.split(" \\(")[0];
-                                    joinFragment.editAddress.setText(data);
+                                    joinFragment.address.setText(data);
                                 }
                             }
                         }

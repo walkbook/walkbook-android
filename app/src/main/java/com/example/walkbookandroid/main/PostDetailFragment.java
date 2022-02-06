@@ -41,19 +41,19 @@ public class PostDetailFragment extends Fragment {
 
     int postId;
     int authorId;
-    TextView titleTextView;
+    TextView title;
     Button authorButton;
-    TextView descriptionTextView;
-    TextView startTextView;
-    TextView endTextView;
-    TextView tmiTextView;
+    TextView description;
+    TextView start;
+    TextView end;
+    TextView tmi;
 
     Button editButton;
     Button deleteButton;
 
     Button likeButton;
     Button unlikeButton;
-    EditText commentEditText;
+    EditText comment;
     Button commentButton;
 
     boolean liked = false;
@@ -73,11 +73,11 @@ public class PostDetailFragment extends Fragment {
 
         commentRecyclerView = rootView.findViewById(R.id.commentRecyclerView);
 
-        titleTextView = rootView.findViewById(R.id.titleText);
-        descriptionTextView = rootView.findViewById(R.id.descriptionText);
-        startTextView = rootView.findViewById(R.id.startText);
-        endTextView = rootView.findViewById(R.id.endText);
-        tmiTextView = rootView.findViewById(R.id.tmiText);
+        title = rootView.findViewById(R.id.titleText);
+        description = rootView.findViewById(R.id.descriptionText);
+        start = rootView.findViewById(R.id.startText);
+        end = rootView.findViewById(R.id.endText);
+        tmi = rootView.findViewById(R.id.tmiText);
 
         authorButton = rootView.findViewById(R.id.authorButton);
         editButton = rootView.findViewById(R.id.editButton);
@@ -85,7 +85,7 @@ public class PostDetailFragment extends Fragment {
 
         likeButton = rootView.findViewById(R.id.likeButton);
         unlikeButton = rootView.findViewById(R.id.unlikeButton);
-        commentEditText = rootView.findViewById(R.id.commentEditText);
+        comment = rootView.findViewById(R.id.commentEditText);
         commentButton = rootView.findViewById(R.id.commentButton);
 
         if (getArguments() != null) {
@@ -96,11 +96,11 @@ public class PostDetailFragment extends Fragment {
             } else {
                 authorId = getArguments().getInt("authorId");
                 authorButton.setText(getArguments().getString("authorName"));
-                titleTextView.setText(getArguments().getString("title"));
-                descriptionTextView.setText(getArguments().getString("description"));
-                startTextView.setText(getArguments().getString("startLocation"));
-                endTextView.setText(getArguments().getString("finishLocation"));
-                tmiTextView.setText(getArguments().getString("tmi"));
+                title.setText(getArguments().getString("title"));
+                description.setText(getArguments().getString("description"));
+                start.setText(getArguments().getString("startLocation"));
+                end.setText(getArguments().getString("finishLocation"));
+                tmi.setText(getArguments().getString("tmi"));
             }
         }
 
@@ -143,11 +143,11 @@ public class PostDetailFragment extends Fragment {
 
                     authorId = result.getData().getAuthorId();
                     authorButton.setText(result.getData().getAuthorName());
-                    titleTextView.setText(result.getData().getTitle());
-                    descriptionTextView.setText(result.getData().getDescription());
-                    startTextView.setText(result.getData().getStartLocation());
-                    endTextView.setText(result.getData().getFinishLocation());
-                    tmiTextView.setText(result.getData().getTmi());
+                    title.setText(result.getData().getTitle());
+                    description.setText(result.getData().getDescription());
+                    start.setText(result.getData().getStartLocation());
+                    end.setText(result.getData().getFinishLocation());
+                    tmi.setText(result.getData().getTmi());
 
                 } else {
                     activity.showToast(response.toString());
@@ -189,11 +189,11 @@ public class PostDetailFragment extends Fragment {
                     public void onClick(View view) {
                         Bundle bundle = new Bundle();
                         bundle.putInt("postId", postId);
-                        bundle.putString("title", titleTextView.getText().toString());
-                        bundle.putString("description", descriptionTextView.getText().toString());
-                        bundle.putString("startLocation", startTextView.getText().toString());
-                        bundle.putString("finishLocation", endTextView.getText().toString());
-                        bundle.putString("tmi", tmiTextView.getText().toString());
+                        bundle.putString("title", title.getText().toString());
+                        bundle.putString("description", description.getText().toString());
+                        bundle.putString("startLocation", start.getText().toString());
+                        bundle.putString("finishLocation", end.getText().toString());
+                        bundle.putString("tmi", tmi.getText().toString());
 
                         EditFragment editFragment = new EditFragment();
                         editFragment.setArguments(bundle);
@@ -319,10 +319,10 @@ public class PostDetailFragment extends Fragment {
         commentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String comment = commentEditText.getText().toString();
+                String comment = PostDetailFragment.this.comment.getText().toString();
                 makeCommentRequest(comment);
 
-                commentEditText.setText("");
+                PostDetailFragment.this.comment.setText("");
 
                 // TODO show comment right away
             }

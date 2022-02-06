@@ -32,24 +32,24 @@ public class JoinFragment extends Fragment {
     String[] items = { "성별을 선택하세요", "남성", "여성" };
     Spinner spinner;
 
-    EditText editId;
-    EditText editPassword;
-    EditText editPassword2;
-    EditText editNickname;
-    EditText editAge;
-    String editSex;
-    EditText editAddress;
+    EditText username;
+    EditText password;
+    EditText passwordCheck;
+    EditText nickname;
+    EditText age;
+    String gender;
+    EditText address;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_join, container, false);
         activity = (AuthActivity) rootView.getContext();
 
-        editId = rootView.findViewById(R.id.join_id_input);
-        editPassword = rootView.findViewById(R.id.join_password_input);
-        editPassword2 = rootView.findViewById(R.id.join_password_input2);
-        editNickname = rootView.findViewById(R.id.join_nickname_input);
-        editAge = rootView.findViewById(R.id.join_age_input);
-        editAddress = rootView.findViewById(R.id.join_address_input);
+        username = rootView.findViewById(R.id.join_id_input);
+        password = rootView.findViewById(R.id.join_password_input);
+        passwordCheck = rootView.findViewById(R.id.join_password_input2);
+        nickname = rootView.findViewById(R.id.join_nickname_input);
+        age = rootView.findViewById(R.id.join_age_input);
+        address = rootView.findViewById(R.id.join_address_input);
 
         // Spinner
         spinner = rootView.findViewById(R.id.join_sex_input);
@@ -62,10 +62,10 @@ public class JoinFragment extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 if (position == 1 || position == 2) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.black));
-                    if (position == 1) editSex = "M";
-                    else editSex = "F";
+                    if (position == 1) gender = "M";
+                    else gender = "F";
                 } else {
-                    editSex = "";
+                    gender = "";
                 }
             }
 
@@ -76,9 +76,9 @@ public class JoinFragment extends Fragment {
         });
 
         // Address
-        editAddress.setFocusable(false);
+        address.setFocusable(false);
 
-        editAddress.setOnClickListener(new View.OnClickListener() {
+        address.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), WebviewActivity.class);
@@ -91,15 +91,15 @@ public class JoinFragment extends Fragment {
         joinButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (editId.getText().toString().equals("") || editPassword.getText().toString().equals("") ||
-                        editPassword2.getText().toString().equals("") ||
-                        editNickname.getText().toString().equals("") || editSex.equals("") ||
-                        editAge.getText().toString().equals("") || editAddress.getText().toString().equals("")) {
+                if (username.getText().toString().equals("") || password.getText().toString().equals("") ||
+                        passwordCheck.getText().toString().equals("") ||
+                        nickname.getText().toString().equals("") || gender.equals("") ||
+                        age.getText().toString().equals("") || address.getText().toString().equals("")) {
                     activity.showToast("모두 입력해야 회원가입할 수 있습니다");
                     return;
                 }
 
-                if ( !editPassword.getText().toString().equals(editPassword2.getText().toString()) ) {
+                if ( !password.getText().toString().equals(passwordCheck.getText().toString()) ) {
                     activity.showToast("패스워드가 서로 다릅니다");
                     return;
                 }
@@ -122,13 +122,13 @@ public class JoinFragment extends Fragment {
 
     private void makeRequest() {
         JoinRequest requestBody = new JoinRequest(
-                editId.getText().toString(),
-                editPassword.getText().toString(),
-                editNickname.getText().toString(),
-                editSex,
-                editAge.getText().toString(),
-                editAddress.getText().toString(),
-                "안녕하세요. " + editNickname.getText().toString() + "입니다"
+                username.getText().toString(),
+                password.getText().toString(),
+                nickname.getText().toString(),
+                gender,
+                age.getText().toString(),
+                address.getText().toString(),
+                "안녕하세요. " + nickname.getText().toString() + "입니다"
         );
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -148,7 +148,7 @@ public class JoinFragment extends Fragment {
                     Log.d("LOG_RETROFIT", "Join 성공, 결과 : " + result.getData().getUserId());
                     activity.showToast("회원가입 완료!");
 
-                    activity.makeLoginRequest(result.getData().getUsername(), editPassword.getText().toString());
+                    activity.makeLoginRequest(result.getData().getUsername(), password.getText().toString());
                 } else {
                     activity.showToast("이미 있는 아이디/닉네임입니다.");
                     Log.d("LOG_RETROFIT", "Join 실패, 결과 : " + response.toString());
