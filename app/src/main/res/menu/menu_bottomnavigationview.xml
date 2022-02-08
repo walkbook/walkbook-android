@@ -11,12 +11,12 @@
         android:icon="@drawable/ic_baseline_collections_24"
         android:title="@string/menuPost" />
     <item
-        android:id="@+id/createItem"
+        android:id="@+id/createPostItem"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_create_24"
         android:title="@string/menuCreate" />
     <item
-        android:id="@+id/profileItem"
+        android:id="@+id/myWalkbookItem"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_book_24"
         android:title="@string/menuProfile" />

@@ -61,11 +61,11 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.postsItem:
                         getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new PostsFragment()).commit();
                         return true;
-                    case R.id.createItem:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new CreateFragment()).commit();
+                    case R.id.createPostItem:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new CreatePostFragment()).commit();
                         return true;
-                    case R.id.profileItem:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new ProfileFragment()).commit();
+                    case R.id.myWalkbookItem:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new MyWalkbookFragment()).commit();
                         return true;
                 }
                 return false;

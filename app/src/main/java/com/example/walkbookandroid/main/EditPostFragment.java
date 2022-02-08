@@ -23,7 +23,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class EditFragment extends Fragment {
+public class EditPostFragment extends Fragment {
     MainActivity activity;
 
     int postId;

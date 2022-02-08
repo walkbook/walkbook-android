@@ -23,7 +23,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class CreateFragment extends Fragment {
+public class CreatePostFragment extends Fragment {
     MainActivity activity;
     MapViewContainer mapViewContainer;
 

@@ -168,11 +168,11 @@ public class PostDetailFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putInt("userId", authorId);
 
-                ProfileFragment profileFragment = new ProfileFragment();
-                profileFragment.setArguments(bundle);
+                MyWalkbookFragment myWalkbookFragment = new MyWalkbookFragment();
+                myWalkbookFragment.setArguments(bundle);
 
                 ((AppCompatActivity) view.getContext()).getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.main_frame, profileFragment)
+                        .replace(R.id.main_frame, myWalkbookFragment)
                         .addToBackStack(null)
                         .commit();
             }
@@ -195,11 +195,11 @@ public class PostDetailFragment extends Fragment {
                         bundle.putString("finishLocation", end.getText().toString());
                         bundle.putString("tmi", tmi.getText().toString());
 
-                        EditFragment editFragment = new EditFragment();
-                        editFragment.setArguments(bundle);
+                        EditPostFragment editPostFragment = new EditPostFragment();
+                        editPostFragment.setArguments(bundle);
 
                         ((AppCompatActivity) view.getContext()).getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.main_frame, editFragment)
+                                .replace(R.id.main_frame, editPostFragment)
                                 .addToBackStack(null)
                                 .commit();
                     }
