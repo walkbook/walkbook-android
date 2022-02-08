@@ -69,11 +69,11 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                     Bundle bundle = new Bundle();
                     bundle.putInt("userId", authorId);
 
-                    MyWalkbookFragment myWalkbookFragment = new MyWalkbookFragment();
-                    myWalkbookFragment.setArguments(bundle);
+                    ProfileFragment profileFragment = new ProfileFragment();
+                    profileFragment.setArguments(bundle);
 
                     FragmentManager manager = ((AppCompatActivity) view.getContext()).getSupportFragmentManager();
-                    manager.beginTransaction().replace(R.id.main_frame, myWalkbookFragment).addToBackStack(null).commit();
+                    manager.beginTransaction().replace(R.id.main_frame, profileFragment).addToBackStack(null).commit();
                 }
             });
 

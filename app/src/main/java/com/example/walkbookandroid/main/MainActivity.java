@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                         getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new CreatePostFragment()).commit();
                         return true;
                     case R.id.myWalkbookItem:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new MyWalkbookFragment()).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new ProfileFragment()).commit();
                         return true;
                 }
                 return false;

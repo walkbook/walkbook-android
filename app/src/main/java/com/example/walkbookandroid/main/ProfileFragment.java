@@ -23,7 +23,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MyWalkbookFragment extends Fragment {
+public class ProfileFragment extends Fragment {
     MainActivity activity;
 
     TextView nickname;
@@ -40,19 +40,23 @@ public class MyWalkbookFragment extends Fragment {
 
         SharedPreferences pref = activity.getSharedPreferences("auth", Activity.MODE_PRIVATE);
 
-        if (getArguments() == null) {   // My profile
+        if (isMyProfile()) {
             if ((pref != null) && (pref.contains("token"))) {
                 String[] addrStr = pref.getString("location", "").split(" ");
                 nickname.setText(pref.getString("nickname", ""));
                 location.setText(addrStr[0] + " " + addrStr[1]);
                 introduction.setText(pref.getString("introduction", ""));
             }
-        } else {    // Other's profile
+        } else {
             int userId = getArguments().getInt("userId");
             getUserInfo(userId);
         }
 
         return rootView;
+    }
+
+    private boolean isMyProfile() {
+        return getArguments() == null;
     }
 
     private void getUserInfo(int userId) {

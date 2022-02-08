@@ -168,11 +168,11 @@ public class PostDetailFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putInt("userId", authorId);
 
-                MyWalkbookFragment myWalkbookFragment = new MyWalkbookFragment();
-                myWalkbookFragment.setArguments(bundle);
+                ProfileFragment profileFragment = new ProfileFragment();
+                profileFragment.setArguments(bundle);
 
                 ((AppCompatActivity) view.getContext()).getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.main_frame, myWalkbookFragment)
+                        .replace(R.id.main_frame, profileFragment)
                         .addToBackStack(null)
                         .commit();
             }

@@ -38,7 +38,7 @@ public class EditPostFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_edit, container, false);
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_edit_post, container, false);
         activity = (MainActivity) container.getContext();
 
         title = rootView.findViewById(R.id.titleEditText);

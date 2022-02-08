@@ -35,7 +35,7 @@ public class CreatePostFragment extends Fragment {
     Button createButton;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_create, container, false);
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_create_post, container, false);
         activity = (MainActivity) container.getContext();
 
         // Map
