@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,10 +26,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ProfileFragment extends Fragment {
     MainActivity activity;
+    SharedPreferences pref;
 
     TextView nickname;
     TextView location;
     TextView introduction;
+    Button editProfileButton;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_profile, container, false);
@@ -38,25 +41,43 @@ public class ProfileFragment extends Fragment {
         location = rootView.findViewById(R.id.locationTextView);
         introduction = rootView.findViewById(R.id.introductionTextView);
 
-        SharedPreferences pref = activity.getSharedPreferences("auth", Activity.MODE_PRIVATE);
+        editProfileButton = rootView.findViewById(R.id.editProfileButton);
+
+        pref = activity.getSharedPreferences("auth", Activity.MODE_PRIVATE);
 
         if (isMyProfile()) {
-            if ((pref != null) && (pref.contains("token"))) {
-                String[] addrStr = pref.getString("location", "").split(" ");
-                nickname.setText(pref.getString("nickname", ""));
-                location.setText(addrStr[0] + " " + addrStr[1]);
-                introduction.setText(pref.getString("introduction", ""));
-            }
+            String[] addrStr = pref.getString("location", "").split(" ");
+            setNicknameLocationIntroduction(
+                    pref.getString("nickname", ""),
+                    addrStr[0] + " " + addrStr[1],
+                    pref.getString("introduction", "")
+            );
+
+            addListenerToEditProfile();
         } else {
             int userId = getArguments().getInt("userId");
             getUserInfo(userId);
+
+            editProfileButton.setVisibility(View.GONE);
         }
 
         return rootView;
     }
 
     private boolean isMyProfile() {
-        return getArguments() == null;
+        return (getArguments() == null) && (pref != null) && (pref.contains("token"));
+    }
+
+    private void addListenerToEditProfile() {
+        editProfileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                activity.getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.main_frame, new EditProfileFragment())
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
     }
 
     private void getUserInfo(int userId) {
@@ -82,9 +103,11 @@ public class ProfileFragment extends Fragment {
 
                     Log.d("LOG_RETROFIT", "Get user info 성공, userId : " + result.getData().getUserId());
 
-                    nickname.setText(result.getData().getNickname());
-                    location.setText(result.getData().getLocation());
-                    introduction.setText(result.getData().getIntroduction());
+                    setNicknameLocationIntroduction(
+                            result.getData().getNickname(),
+                            result.getData().getLocation(),
+                            result.getData().getIntroduction()
+                    );
                 } else {
                     activity.showToast("서버와의 통신에 문제가 있습니다");
                 }
@@ -95,5 +118,11 @@ public class ProfileFragment extends Fragment {
                 Log.e("LOG_RETROFIT", "Get user 실패, message : " + t.getMessage());
             }
         });
+    }
+
+    private void setNicknameLocationIntroduction(String nickname, String location, String introduction) {
+        this.nickname.setText(nickname);
+        this.location.setText(location);
+        this.introduction.setText(introduction);
     }
 }

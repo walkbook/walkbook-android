@@ -53,8 +53,17 @@
     <string name="commentButton">작성</string>
 
     <!-- Profile -->
+    <string name="profileEditTitle">내 정보 수정하기</string>
+
     <string name="profileLabelNickname">닉네임</string>
     <string name="profileLabelAddress">활동하는 장소</string>
     <string name="profileLabelIntroduction">소개</string>
+
+    <string name="nicknameEditText">닉네임을 입력해주세요</string>
+    <string name="locationEditText">활동하는 장소를 입력해주세요</string>
+    <string name="introductionEditText">소개를 입력해주세요</string>
+
+    <string name="profileEditButton">정보 수정하기</string>
+
 
 </resources>
