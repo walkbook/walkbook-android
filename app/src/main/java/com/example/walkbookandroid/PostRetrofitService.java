@@ -23,7 +23,7 @@ public interface PostRetrofitService {
     Call<PostResponse> getPost(@Path("id") String postId);
 
     @Headers({"Content-Type: application/json"})
-    @POST("api/post/create")
+    @POST("api/post")
     Call<PostResponse> create(@Header("X-AUTH-TOKEN") String token, @Body PostRequest postRequest);
 
     @Headers({"Content-Type: application/json"})
