@@ -5,6 +5,12 @@
     android:orientation="vertical"
     android:gravity="center"
     android:background="@color/white">
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginBottom="70dp"
+        android:src="@drawable/logo" />
 
     <EditText
         android:id="@+id/login_id_input"
