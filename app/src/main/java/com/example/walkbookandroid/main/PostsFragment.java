@@ -66,7 +66,7 @@ public class PostsFragment extends Fragment {
             public void run(){
                 progressBar.setVisibility(View.GONE);
             }
-        },2000);
+        },1200);
     }
 
     private void loadPosts(int pageNumber) {
@@ -85,7 +85,7 @@ public class PostsFragment extends Fragment {
                     makePostsRequestWithPageNumber(pageNumber);
                 }
             }
-        }, 2000);
+        }, 1200);
     }
 
     private void makePostsRequestWithPageNumber(int pageNumber) {

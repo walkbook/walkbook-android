@@ -150,6 +150,10 @@ public class PostDetailFragment extends Fragment {
                     end.setText(result.getData().getFinishLocation());
                     tmi.setText(result.getData().getTmi());
 
+                    addListenerToAuthorButton();
+                    addListenerToEditAndDeleteButton();
+                    addListenerToLikeButton();
+                    addListenerToCommentButton();
                 } else {
                     activity.showToast(response.toString());
                 }
@@ -185,6 +189,9 @@ public class PostDetailFragment extends Fragment {
 
         if ((pref != null) && (pref.contains("token"))) {
             if (authorId == pref.getInt("userId", 0)) {
+                editButton.setVisibility(View.VISIBLE);
+                deleteButton.setVisibility(View.VISIBLE);
+
                 editButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -336,11 +343,6 @@ public class PostDetailFragment extends Fragment {
     }
 
     private void initCommentAdaptor() {
-        // TODO delete dummy data
-        comments.add(new Comment(1, 1, "user1", "ㅁㄴㅇㄹㄴㅇ"));
-        comments.add(new Comment(2, 1, "user1", "ㅁㄴㅇㄹㄴㅇ"));
-        comments.add(new Comment(3, 1, "user1", "ㅁㄴㅇㄹㄴㅇ"));
-
         commentAdapter = new CommentAdapter(comments);
         LinearLayoutManager layoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
         commentRecyclerView.setAdapter(commentAdapter);

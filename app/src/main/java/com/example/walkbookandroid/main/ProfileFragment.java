@@ -65,7 +65,8 @@ public class ProfileFragment extends Fragment {
     }
 
     private boolean isMyProfile() {
-        return (getArguments() == null) && (pref != null) && (pref.contains("token"));
+        return ( (getArguments() == null) && (pref != null) && (pref.contains("token")) )
+                || (getArguments() != null) && getArguments().getInt("userId") == pref.getInt("userId", 0);
     }
 
     private void addListenerToEditProfile() {
