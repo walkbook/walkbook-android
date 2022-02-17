@@ -33,7 +33,7 @@ public class PostCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.postcard, parent, false);
             return new ItemViewHolder(view);
         } else {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.postcard_loading, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.loading, parent, false);
             return new LoadingViewHolder(view);
         }
     }
