@@ -99,7 +99,7 @@ public class EditPostFragment extends Fragment {
             return;
         }
 
-        Call<PostResponse> call = service.edit(pref.getString("token", ""), postId, requestBody);
+        Call<PostResponse> call = service.editPost(pref.getString("token", ""), postId, requestBody);
 
         call.enqueue(new Callback<PostResponse>() {
             @Override

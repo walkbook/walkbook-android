@@ -89,7 +89,7 @@ public class CreatePostFragment extends Fragment {
             return;
         }
 
-        Call<PostResponse> call = service.create(pref.getString("token", ""), requestBody);
+        Call<PostResponse> call = service.createPost(pref.getString("token", ""), requestBody);
 
         call.enqueue(new Callback<PostResponse>() {
             @Override
