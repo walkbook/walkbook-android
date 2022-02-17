@@ -33,7 +33,7 @@ public class PostsFragment extends Fragment {
     private RecyclerView recyclerView;
     private PostCardAdapter adapter;
 
-    private ArrayList<PostCard> postCards = new ArrayList<>();
+    private ArrayList<PostCard> postCards;
     private String searchQuery = null;
     private boolean isLoading = false;
     private int totalPages = 0;
@@ -44,6 +44,7 @@ public class PostsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_posts, container, false);
         activity = (MainActivity) rootView.getContext();
+        postCards = new ArrayList<>();
 
         progressBar = rootView.findViewById(R.id.progressBar);
         recyclerView = rootView.findViewById(R.id.recyclerView);

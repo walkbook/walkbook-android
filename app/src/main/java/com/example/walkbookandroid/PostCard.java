@@ -6,13 +6,19 @@ public class PostCard {
     String description;
     int authorId;
     String authorName;
+    boolean liked;
+    int likeCount;
+    int commentCount;
 
-    public PostCard(int postId, String title, String description, int authorId, String authorName) {
+    public PostCard(int postId, String title, String description, int authorId, String authorName, boolean liked, int likeCount, int commentCount) {
         this.postId = postId;
         this.title = title;
         this.description = description;
         this.authorId = authorId;
         this.authorName = authorName;
+        this.liked = liked;
+        this.likeCount = likeCount;
+        this.commentCount = commentCount;
     }
 
     public int getPostId() {
@@ -33,6 +39,16 @@ public class PostCard {
 
     public String getAuthorName() {
         return authorName;
+    }
+
+    public boolean getLiked() { return liked; }
+
+    public int getLikeCount() {
+        return likeCount;
+    }
+
+    public int getCommentCount() {
+        return commentCount;
     }
 
     @Override

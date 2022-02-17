@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -51,8 +52,8 @@ public class PostDetailFragment extends Fragment {
     Button editButton;
     Button deleteButton;
 
-    Button likeButton;
-    Button unlikeButton;
+    ImageView likeButton;
+    ImageView unlikeButton;
     EditText comment;
     Button commentButton;
 

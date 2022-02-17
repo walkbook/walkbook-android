@@ -72,6 +72,8 @@ public class PostCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         TextView titleView;
         TextView descriptionView;
         TextView authorNameView;
+        TextView likeCountView;
+        TextView commentCountView;
 
         public ItemViewHolder(View itemView) {
             super(itemView);
@@ -79,6 +81,8 @@ public class PostCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             titleView = itemView.findViewById(R.id.titleTextView);
             descriptionView = itemView.findViewById(R.id.descriptionTextView);
             authorNameView = itemView.findViewById(R.id.authorTextView);
+            likeCountView = itemView.findViewById(R.id.likeCount);
+            commentCountView = itemView.findViewById(R.id.commentCount);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -103,6 +107,8 @@ public class PostCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             titleView.setText(item.getTitle());
             descriptionView.setText(item.getDescription());
             authorNameView.setText(item.getAuthorName());
+            likeCountView.setText(Integer.toString(item.getLikeCount()));
+            commentCountView.setText(Integer.toString(item.getCommentCount()));
         }
 
     }

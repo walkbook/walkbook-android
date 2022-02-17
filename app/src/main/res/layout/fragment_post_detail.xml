@@ -159,20 +159,19 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintRight_toLeftOf="@+id/commentEditText" >
-                <Button
+                <ImageView
                     android:id="@+id/likeButton"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:background="@drawable/ic_baseline_favorite_border_24"
-                    />
+                    android:src="@drawable/ic_baseline_favorite_border_24"
+                    app:tint="@color/textColor" />
 
-                <Button
+                <ImageView
                     android:id="@+id/unlikeButton"
                     android:visibility="gone"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:background="@drawable/ic_baseline_favorite_24"
-                    />
+                    android:src="@drawable/ic_baseline_favorite_24" />
             </LinearLayout>
 
 
