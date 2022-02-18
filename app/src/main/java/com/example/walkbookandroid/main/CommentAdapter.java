@@ -86,7 +86,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         }
 
         public void setItem(Comment comment) {
-            id = comment.getId();
+            id = comment.getCommentId();
             authorId = comment.getAuthorId();
             authorButton.setText(comment.getAuthorName());
             content.setText(comment.getContent());

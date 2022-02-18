@@ -1,21 +1,29 @@
 package com.example.walkbookandroid;
 
 public class Comment {
-    int id;
-    int authorId;
-    String authorName;
-    String content;
+    private int commentId;
+    private int postId;
+    private int authorId;
+    private String authorName;
+    private String content;
+    private String createdDate;
+    private String modifiedDate;
 
-    public Comment(int id, int authorId, String authorName, String content) {
-        this.id = id;
+    public Comment(int commentId, int postId, int authorId, String authorName, String content, String createdDate, String modifiedDate) {
+        this.commentId = commentId;
+        this.postId = postId;
         this.authorId = authorId;
         this.authorName = authorName;
         this.content = content;
+        this.createdDate = createdDate;
+        this.modifiedDate = modifiedDate;
     }
 
-    public int getId() {
-        return id;
+    public int getCommentId() {
+        return commentId;
     }
+
+    public int getPostId() { return postId; }
 
     public int getAuthorId() {
         return authorId;
@@ -31,6 +39,6 @@ public class Comment {
 
     @Override
     public String toString() {
-        return "Comment [id=" + id + ", authorId=" + authorId + ", authorName=" + authorName + ", content=" + content + "]";
+        return "Comment [commentId=" + commentId + ", postId=" + postId + ", authorId=" + authorId + ", authorName=" + authorName + ", content=" + content + "]";
     }
 }

@@ -32,4 +32,16 @@ public interface PostRetrofitService {
 
     @DELETE("api/post/{id}/delete")
     Call<BaseResponse> deletePost(@Header("X-AUTH-TOKEN") String token, @Path("id") int postId);
+
+    @Headers({"Content-Type: application/json"})
+    @POST("api/post/{id}/like")
+    Call<BaseResponse> likePost(@Header("X-AUTH-TOKEN") String token, @Path("id") int postId);
+
+    @Headers({"Content-Type: application/json"})
+    @POST("api/post/{id}/comment")
+    Call<BaseResponse> createComment(@Header("X-AUTH-TOKEN") String token, @Path("id") int postId);
+
+    @Headers({"Content-Type: application/json"})
+    @PUT("api/post/{id}/comment/{cid}")
+    Call<BaseResponse> deleteComment(@Header("X-AUTH-TOKEN") String token, @Path("id") int postId, @Path("cid") int commentId);
 }
