@@ -36,6 +36,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PostDetailFragment extends Fragment {
     MainActivity activity;
+    SharedPreferences pref;
     MapViewContainer mapViewContainer;
     CommentAdapter commentAdapter;
     RecyclerView commentRecyclerView;
@@ -64,6 +65,8 @@ public class PostDetailFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_post_detail, container, false);
         activity = (MainActivity) container.getContext();
+
+        pref = activity.getSharedPreferences("auth", Activity.MODE_PRIVATE);
 
         // Map
         mapViewContainer = new MapViewContainer(activity);
@@ -185,8 +188,6 @@ public class PostDetailFragment extends Fragment {
     }
 
     private void addListenerToEditAndDeleteButton() {
-        SharedPreferences pref = activity.getSharedPreferences("auth", Activity.MODE_PRIVATE);
-
         if ((pref != null) && (pref.contains("token"))) {
             if (authorId == pref.getInt("userId", 0)) {
                 editButton.setVisibility(View.VISIBLE);
@@ -256,7 +257,6 @@ public class PostDetailFragment extends Fragment {
 
         PostRetrofitService service = retrofit.create(PostRetrofitService.class);
 
-        SharedPreferences pref = activity.getSharedPreferences("auth", Activity.MODE_PRIVATE);
         if ((pref == null) || !(pref.contains("token"))) {
             activity.showToast("로그인 상태에 문제가 있습니다");
             return;
@@ -318,9 +318,36 @@ public class PostDetailFragment extends Fragment {
     }
 
     private void makeLikeRequest() {
-        // TODO
-        if (liked) activity.showToast("좋아요");
-        else activity.showToast("좋아요 취소");
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://walkbook-backend.herokuapp.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        PostRetrofitService service = retrofit.create(PostRetrofitService.class);
+
+        if ((pref == null) || !(pref.contains("token"))) {
+            activity.showToast("로그인 상태에 문제가 있습니다");
+            return;
+        }
+
+        Call<BaseResponse> call = service.likePost(pref.getString("token", ""), postId);
+
+        call.enqueue(new Callback<BaseResponse>() {
+            @Override
+            public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
+                if (response.isSuccessful()) {
+                    Log.d("LOG_RETROFIT", "Like 성공, postId : " + postId);
+                    activity.showToast("좋아요 성공!");
+                } else {
+                    activity.showToast("서버와의 통신에 문제가 있습니다.");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse> call, Throwable t) {
+                Log.e("LOG_RETROFIT", "Like 실패, message : " + t.getMessage());
+            }
+        });
     }
 
     private void addListenerToCommentButton() {
