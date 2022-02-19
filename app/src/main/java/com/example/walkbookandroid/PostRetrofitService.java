@@ -22,6 +22,9 @@ public interface PostRetrofitService {
     @GET("api/post/{id}")
     Call<PostResponse> getPost(@Path("id") String postId);
 
+    @GET("api/post/search")
+    Call<PostsResponse> getSearchPosts(@Query("keyword") String keyword);
+
     @Headers({"Content-Type: application/json"})
     @POST("api/post")
     Call<PostResponse> createPost(@Header("X-AUTH-TOKEN") String token, @Body PostRequest postRequest);

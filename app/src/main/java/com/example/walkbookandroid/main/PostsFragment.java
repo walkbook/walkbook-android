@@ -101,9 +101,7 @@ public class PostsFragment extends Fragment {
         if (searchQuery == null) {
             call = service.getPosts(pageNumber, PAGE_SIZE, "createdDate,desc");
         } else {
-            // TODO request search
-            activity.showToast("searching : " + searchQuery);
-            return;
+            call = service.getSearchPosts(searchQuery);
         }
 
         call.enqueue(new Callback<PostsResponse>() {
