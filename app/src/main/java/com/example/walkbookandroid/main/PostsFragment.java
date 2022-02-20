@@ -1,5 +1,7 @@
 package com.example.walkbookandroid.main;
 
+import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -96,12 +98,18 @@ public class PostsFragment extends Fragment {
 
         PostRetrofitService service = retrofit.create(PostRetrofitService.class);
 
+        SharedPreferences pref = activity.getSharedPreferences("auth", Activity.MODE_PRIVATE);
+        if ((pref == null) || !(pref.contains("token"))) {
+            activity.showToast("로그인 상태에 문제가 있습니다");
+            return;
+        }
+
         Call<PostsResponse> call;
 
         if (searchQuery == null) {
-            call = service.getPosts(pageNumber, PAGE_SIZE, "createdDate,desc");
+            call = service.getPosts(pref.getString("token", ""), pageNumber, PAGE_SIZE, "createdDate,desc");
         } else {
-            call = service.getSearchPosts(searchQuery, "likeCount,desc");
+            call = service.getSearchPosts(pref.getString("token", ""), searchQuery, "likeCount,desc");
         }
 
         call.enqueue(new Callback<PostsResponse>() {

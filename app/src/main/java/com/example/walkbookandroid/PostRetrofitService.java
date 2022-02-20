@@ -1,5 +1,7 @@
 package com.example.walkbookandroid;
 
+import com.example.walkbookandroid.main.CommentRequest;
+import com.example.walkbookandroid.main.CommentResponse;
 import com.example.walkbookandroid.main.PostRequest;
 import com.example.walkbookandroid.main.PostResponse;
 import com.example.walkbookandroid.main.PostsResponse;
@@ -17,13 +19,13 @@ import retrofit2.http.Query;
 
 public interface PostRetrofitService {
     @GET("api/post/page")
-    Call<PostsResponse> getPosts(@Query("page") int pageNum, @Query("size") int size, @Query("sort") String sort);
+    Call<PostsResponse> getPosts(@Header("X-AUTH-TOKEN") String token, @Query("page") int pageNum, @Query("size") int size, @Query("sort") String sort);
 
     @GET("api/post/{id}")
-    Call<PostResponse> getPost(@Path("id") String postId);
+    Call<PostResponse> getPost(@Header("X-AUTH-TOKEN") String token, @Path("id") String postId);
 
     @GET("api/post/search")
-    Call<PostsResponse> getSearchPosts(@Query("keyword") String keyword, @Query("sort") String sort);
+    Call<PostsResponse> getSearchPosts(@Header("X-AUTH-TOKEN") String token, @Query("keyword") String keyword, @Query("sort") String sort);
 
     @Headers({"Content-Type: application/json"})
     @POST("api/post")
@@ -42,7 +44,7 @@ public interface PostRetrofitService {
 
     @Headers({"Content-Type: application/json"})
     @POST("api/post/{id}/comment")
-    Call<BaseResponse> createComment(@Header("X-AUTH-TOKEN") String token, @Path("id") int postId);
+    Call<CommentResponse> createComment(@Header("X-AUTH-TOKEN") String token, @Path("id") int postId, @Body CommentRequest commentRequest);
 
     @Headers({"Content-Type: application/json"})
     @PUT("api/post/{id}/comment/{cid}")

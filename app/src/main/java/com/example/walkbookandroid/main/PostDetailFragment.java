@@ -124,6 +124,13 @@ public class PostDetailFragment extends Fragment {
         ((ViewGroup) mapViewContainer.getMapView().getParent()).removeView(mapViewContainer.getMapView());
     }
 
+    private void initCommentAdaptor() {
+        commentAdapter = new CommentAdapter(comments);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
+        commentRecyclerView.setAdapter(commentAdapter);
+        commentRecyclerView.setLayoutManager(layoutManager);
+    }
+
     public void makePostRequest() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://walkbook-backend.herokuapp.com/")
@@ -132,7 +139,7 @@ public class PostDetailFragment extends Fragment {
 
         PostRetrofitService service = retrofit.create(PostRetrofitService.class);
 
-        Call<PostResponse> call = service.getPost(Integer.toString(postId));
+        Call<PostResponse> call = service.getPost(pref.getString("token", ""), Integer.toString(postId));
 
         call.enqueue(new Callback<PostResponse>() {
             @Override
@@ -288,7 +295,7 @@ public class PostDetailFragment extends Fragment {
 
             @Override
             public void onFailure(Call<BaseResponse> call, Throwable t) {
-                Log.e("LOG_RETROFIT", "Get post 실패, message : " + t.getMessage());
+                Log.e("LOG_RETROFIT", "Delete post 실패, message : " + t.getMessage());
             }
         });
     }
@@ -358,8 +365,6 @@ public class PostDetailFragment extends Fragment {
                 makeCommentRequest(comment);
 
                 PostDetailFragment.this.comment.setText("");
-
-                // TODO show comment right away
             }
         });
     }
@@ -367,12 +372,5 @@ public class PostDetailFragment extends Fragment {
     private void makeCommentRequest(String comment) {
         // TODO
         activity.showToast("댓글 \"" + comment + "\"이 등록되었습니다!");
-    }
-
-    private void initCommentAdaptor() {
-        commentAdapter = new CommentAdapter(comments);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
-        commentRecyclerView.setAdapter(commentAdapter);
-        commentRecyclerView.setLayoutManager(layoutManager);
     }
 }

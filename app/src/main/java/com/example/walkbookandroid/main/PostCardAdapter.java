@@ -123,6 +123,10 @@ public class PostCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 @Override
                 public void onClick(View view) {
                     makeLikeRequest(view);
+
+                    liked = true;
+                    handleLikeButton();
+                    handleLikeCount();
                 }
             });
 
@@ -130,6 +134,10 @@ public class PostCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 @Override
                 public void onClick(View view) {
                     makeLikeRequest(view);
+
+                    liked = false;
+                    handleLikeButton();
+                    handleLikeCount();
                 }
             });
         }
@@ -158,7 +166,6 @@ public class PostCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
                     if (response.isSuccessful()) {
                         Log.d("LOG_RETROFIT", "Like 성공, postId : " + postId);
-                        activity.showToast("좋아요 성공!");
                     } else {
                         activity.showToast("서버와의 통신에 문제가 있습니다.");
                     }
@@ -179,13 +186,26 @@ public class PostCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             authorNameView.setText(item.getAuthorName());
             likeCountView.setText(Integer.toString(item.getLikeCount()));
             commentCountView.setText(Integer.toString(item.getCommentCount()));
+            liked = item.getLiked();
 
+            handleLikeButton();
+        }
+
+        private void handleLikeButton() {
             if (liked) {
                 likeButton.setVisibility(View.GONE);
                 unlikeButton.setVisibility(View.VISIBLE);
             } else {
                 unlikeButton.setVisibility(View.GONE);
                 likeButton.setVisibility(View.VISIBLE);
+            }
+        }
+
+        private void handleLikeCount() {
+            if (liked) {
+                likeCountView.setText(Integer.toString(Integer.parseInt(likeCountView.getText().toString()) + 1));
+            } else {
+                likeCountView.setText(Integer.toString(Integer.parseInt(likeCountView.getText().toString()) - 1));
             }
         }
     }
