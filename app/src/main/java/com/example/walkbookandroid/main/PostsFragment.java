@@ -101,7 +101,7 @@ public class PostsFragment extends Fragment {
         if (searchQuery == null) {
             call = service.getPosts(pageNumber, PAGE_SIZE, "createdDate,desc");
         } else {
-            call = service.getSearchPosts(searchQuery);
+            call = service.getSearchPosts(searchQuery, "likeCount,desc");
         }
 
         call.enqueue(new Callback<PostsResponse>() {

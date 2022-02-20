@@ -23,7 +23,7 @@ public interface PostRetrofitService {
     Call<PostResponse> getPost(@Path("id") String postId);
 
     @GET("api/post/search")
-    Call<PostsResponse> getSearchPosts(@Query("keyword") String keyword);
+    Call<PostsResponse> getSearchPosts(@Query("keyword") String keyword, @Query("sort") String sort);
 
     @Headers({"Content-Type: application/json"})
     @POST("api/post")
