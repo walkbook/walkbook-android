@@ -1,6 +1,7 @@
 package com.example.walkbookandroid.main;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -94,38 +96,74 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                 public void onClick(View view) {
                     MainActivity activity = ((MainActivity) view.getContext());
 
-                    Retrofit retrofit = new Retrofit.Builder()
-                            .baseUrl("https://walkbook-backend.herokuapp.com/")
-                            .addConverterFactory(GsonConverterFactory.create())
-                            .build();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                    builder.setMessage("정말 삭제하시겠습니까?");
 
-                    PostRetrofitService service = retrofit.create(PostRetrofitService.class);
-
-                    SharedPreferences pref = activity.getSharedPreferences("auth", Activity.MODE_PRIVATE);
-                    if ((pref == null) || !(pref.contains("token"))) {
-                        activity.showToast("로그인 상태에 문제가 있습니다");
-                        return;
-                    }
-
-                    Call<BaseResponse> call = service.deleteComment(pref.getString("token", ""), postId, commentId);
-
-                    call.enqueue(new Callback<BaseResponse>() {
+                    builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
                         @Override
-                        public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
-                            if (response.isSuccessful()) {
-                                Log.d("LOG_RETROFIT", "Delete Comment 성공, postId : " + postId + ", commentId : " + commentId);
-
-                                itemView.setVisibility(View.GONE);
-                            } else {
-                                activity.showToast("서버와의 통신에 문제가 있습니다.");
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<BaseResponse> call, Throwable t) {
-                            Log.e("LOG_RETROFIT", "Delete comment 실패, message : " + t.getMessage());
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            makeDeleteCommentRequest(view);
                         }
                     });
+
+                    builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    });
+
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
+            });
+        }
+
+        private void makeDeleteCommentRequest(View view) {
+            MainActivity activity = ((MainActivity) view.getContext());
+
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl("https://walkbook-backend.herokuapp.com/")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+
+            PostRetrofitService service = retrofit.create(PostRetrofitService.class);
+
+            SharedPreferences pref = activity.getSharedPreferences("auth", Activity.MODE_PRIVATE);
+            if ((pref == null) || !(pref.contains("token"))) {
+                activity.showToast("로그인 상태에 문제가 있습니다");
+                return;
+            }
+
+            Call<BaseResponse> call = service.deleteComment(pref.getString("token", ""), postId, commentId);
+
+            call.enqueue(new Callback<BaseResponse>() {
+                @Override
+                public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
+                    if (response.isSuccessful()) {
+                        Log.d("LOG_RETROFIT", "Delete Comment 성공, postId : " + postId + ", commentId : " + commentId);
+
+                        activity.showToast("댓글이 삭제되었습니다!");
+
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("postId", postId);
+
+                        PostDetailFragment postDetailFragment = new PostDetailFragment();
+                        postDetailFragment.setArguments(bundle);
+
+                        activity.getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.main_frame, postDetailFragment)
+                                .addToBackStack(null)
+                                .commit();
+                    } else {
+                        activity.showToast("서버와의 통신에 문제가 있습니다.");
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<BaseResponse> call, Throwable t) {
+                    Log.e("LOG_RETROFIT", "Delete comment 실패, message : " + t.getMessage());
                 }
             });
         }

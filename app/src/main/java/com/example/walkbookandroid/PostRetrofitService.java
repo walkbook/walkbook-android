@@ -47,6 +47,6 @@ public interface PostRetrofitService {
     Call<CommentResponse> createComment(@Header("X-AUTH-TOKEN") String token, @Path("id") int postId, @Body CommentRequest commentRequest);
 
     @Headers({"Content-Type: application/json"})
-    @PUT("api/post/{id}/comment/{cid}")
+    @DELETE("api/post/{id}/comment/{cid}")
     Call<BaseResponse> deleteComment(@Header("X-AUTH-TOKEN") String token, @Path("id") int postId, @Path("cid") int commentId);
 }

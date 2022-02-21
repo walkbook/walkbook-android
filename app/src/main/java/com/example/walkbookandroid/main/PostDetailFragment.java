@@ -27,6 +27,9 @@ import com.example.walkbookandroid.PostRetrofitService;
 import com.example.walkbookandroid.R;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -159,6 +162,20 @@ public class PostDetailFragment extends Fragment {
                     start.setText(result.getData().getStartLocation());
                     end.setText(result.getData().getFinishLocation());
                     tmi.setText(result.getData().getTmi());
+
+                    if (result.getData().getLiked()) {
+                        unlikeButton.setVisibility(View.VISIBLE);
+                        likeButton.setVisibility(View.GONE);
+                    } else {
+                        likeButton.setVisibility(View.VISIBLE);
+                        unlikeButton.setVisibility(View.GONE);
+                    }
+
+                    List commentsList = Arrays.asList(result.getData().getComments());
+                    Collections.reverse(commentsList);
+
+                    comments.addAll(commentsList);
+                    commentAdapter.notifyDataSetChanged();
 
                     addListenerToAuthorButton();
                     addListenerToEditAndDeleteButton();
@@ -393,9 +410,10 @@ public class PostDetailFragment extends Fragment {
                     CommentResponse result = response.body();
 
                     Log.d("LOG_RETROFIT", "Create Comment 성공, postId : " + postId + ", comment : " + comment);
-                    activity.showToast("댓글 \"" + comment + "\"이 등록되었습니다!");
+                    activity.showToast("댓글이 성공적으로 등록되었습니다!");
 
                     comments.add(0, result.getData());
+                    commentAdapter.notifyDataSetChanged();
                 } else {
                     activity.showToast("서버와의 통신에 문제가 있습니다.");
                 }
