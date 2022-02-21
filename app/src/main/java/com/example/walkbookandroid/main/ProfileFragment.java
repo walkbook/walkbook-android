@@ -89,7 +89,7 @@ public class ProfileFragment extends Fragment {
 
         UserRetrofitService service = retrofit.create(UserRetrofitService.class);
 
-        Call<UserResponse> call = service.getUser(Integer.toString(userId));
+        Call<UserResponse> call = service.getUser(userId);
 
         call.enqueue(new Callback<UserResponse>() {
             @Override
