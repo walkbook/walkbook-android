@@ -7,10 +7,6 @@
         app:showAsAction="ifRoom"
         app:actionViewClass="androidx.appcompat.widget.SearchView" />
     <item
-        android:id="@+id/action_account"
-        android:title="@string/menuAccount"
-        app:showAsAction="never" />
-    <item
         android:id="@+id/action_logout"
         android:title="@string/menuLogout"
         app:showAsAction="never" />

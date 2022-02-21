@@ -110,10 +110,6 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_search:
-                showToast("Search clicked");
-                return true;
-            case R.id.action_account:
-                showToast("Account clicked");
                 return true;
             case R.id.action_logout:
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
