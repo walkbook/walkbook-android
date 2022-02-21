@@ -370,7 +370,41 @@ public class PostDetailFragment extends Fragment {
     }
 
     private void makeCommentRequest(String comment) {
-        // TODO
-        activity.showToast("댓글 \"" + comment + "\"이 등록되었습니다!");
+        CommentRequest requestBody = new CommentRequest(comment);
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://walkbook-backend.herokuapp.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        PostRetrofitService service = retrofit.create(PostRetrofitService.class);
+
+        if ((pref == null) || !(pref.contains("token"))) {
+            activity.showToast("로그인 상태에 문제가 있습니다");
+            return;
+        }
+
+        Call<CommentResponse> call = service.createComment(pref.getString("token", ""), postId, requestBody);
+
+        call.enqueue(new Callback<CommentResponse>() {
+            @Override
+            public void onResponse(Call<CommentResponse> call, Response<CommentResponse> response) {
+                if (response.isSuccessful()) {
+                    CommentResponse result = response.body();
+
+                    Log.d("LOG_RETROFIT", "Create Comment 성공, postId : " + postId + ", comment : " + comment);
+                    activity.showToast("댓글 \"" + comment + "\"이 등록되었습니다!");
+
+                    comments.add(0, result.getData());
+                } else {
+                    activity.showToast("서버와의 통신에 문제가 있습니다.");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CommentResponse> call, Throwable t) {
+                Log.e("LOG_RETROFIT", "Create comment 실패, message : " + t.getMessage());
+            }
+        });
     }
 }
