@@ -8,7 +8,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -42,12 +45,16 @@ public class PostsFragment extends Fragment {
     private int currentPage = 0;
 
     private final int PAGE_SIZE = 10;
+    private String[] sortItems = { "좋아요 순", "최근 순" };
+    private Spinner sortSpinner;
+    private String sort = "likeCount";
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_posts, container, false);
         activity = (MainActivity) rootView.getContext();
         postCards = new ArrayList<>();
 
+        sortSpinner = rootView.findViewById(R.id.sortSpinner);
         progressBar = rootView.findViewById(R.id.progressBar);
         recyclerView = rootView.findViewById(R.id.recyclerView);
 
@@ -57,9 +64,34 @@ public class PostsFragment extends Fragment {
             searchQuery = getArguments().getString("query");
         }
 
-        makePostsRequestWithPageNumber(0);
+        setSortSpinnerAndLoadPosts();
 
         return rootView;
+    }
+
+    private void setSortSpinnerAndLoadPosts() {
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity, R.layout.sort_spinner_item, sortItems);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sortSpinner.setAdapter(adapter);
+
+        sortSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                if (position == 0) {
+                    sort = "likeCount,desc";
+                } else {
+                    sort = "createdDate,desc";
+                }
+
+                postCards.clear();
+                makePostsRequestWithPageNumber(0);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
     private void hideProgressBar() {
@@ -107,9 +139,9 @@ public class PostsFragment extends Fragment {
         Call<PostsResponse> call;
 
         if (searchQuery == null) {
-            call = service.getPosts(pref.getString("token", ""), pageNumber, PAGE_SIZE, "createdDate,desc");
+            call = service.getPosts(pref.getString("token", ""), pageNumber, PAGE_SIZE, sort);
         } else {
-            call = service.getSearchPosts(pref.getString("token", ""), searchQuery, "likeCount,desc");
+            call = service.getSearchPosts(pref.getString("token", ""), searchQuery, sort);
         }
 
         call.enqueue(new Callback<PostsResponse>() {
