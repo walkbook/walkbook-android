@@ -13,10 +13,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.walkbookandroid.PostCard;
 import com.example.walkbookandroid.R;
 import com.example.walkbookandroid.UserRetrofitService;
 import com.example.walkbookandroid.auth.UserResponse;
+
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,13 +30,16 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ProfileFragment extends Fragment {
-    MainActivity activity;
-    SharedPreferences pref;
+    private MainActivity activity;
+    private SharedPreferences pref;
+    private PostCardAdapter adapter;
+    private ArrayList<PostCard> postCards = new ArrayList<>();;
+    private RecyclerView recyclerView;
 
-    TextView nickname;
-    TextView location;
-    TextView introduction;
-    Button editProfileButton;
+    private TextView nickname;
+    private TextView location;
+    private TextView introduction;
+    private Button editProfileButton;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_profile, container, false);
@@ -43,7 +51,11 @@ public class ProfileFragment extends Fragment {
 
         editProfileButton = rootView.findViewById(R.id.editProfileButton);
 
+        recyclerView = rootView.findViewById(R.id.postsRecyclerView);
+
         pref = activity.getSharedPreferences("auth", Activity.MODE_PRIVATE);
+
+        initPostsAdaptor();
 
         if (isMyProfile()) {
             String[] addrStr = pref.getString("location", "").split(" ");
@@ -119,6 +131,13 @@ public class ProfileFragment extends Fragment {
                 Log.e("LOG_RETROFIT", "Get user 실패, message : " + t.getMessage());
             }
         });
+    }
+
+    private void initPostsAdaptor() {
+        adapter = new PostCardAdapter(postCards);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(layoutManager);
     }
 
     private void setNicknameLocationIntroduction(String nickname, String location, String introduction) {

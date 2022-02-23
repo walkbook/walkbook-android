@@ -65,5 +65,8 @@
 
     <string name="profileEditButton">정보 수정하기</string>
 
+    <string name="myPostButton">작성한 산책로</string>
+    <string name="likedPostButton">좋아요한 산책로</string>
+
 
 </resources>
