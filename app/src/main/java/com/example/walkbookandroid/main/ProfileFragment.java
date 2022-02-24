@@ -2,6 +2,7 @@ package com.example.walkbookandroid.main;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -155,6 +156,9 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 getMyPosts();
+
+                likedPostsButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.gray)));
+                myPostsButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimaryDark)));
             }
         });
     }
@@ -164,6 +168,9 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 getLikedPosts();
+
+                myPostsButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.gray)));
+                likedPostsButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimaryDark)));
             }
         });
     }
