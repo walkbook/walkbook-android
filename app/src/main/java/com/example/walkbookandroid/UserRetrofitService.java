@@ -6,6 +6,7 @@ import com.example.walkbookandroid.auth.LoginRequest;
 import com.example.walkbookandroid.auth.LoginResponse;
 import com.example.walkbookandroid.auth.UserResponse;
 import com.example.walkbookandroid.main.EditProfileRequest;
+import com.example.walkbookandroid.main.PostCardsResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -30,4 +31,10 @@ public interface UserRetrofitService {
 
     @PUT("api/user/{id}")
     Call<UserResponse> editUser(@Header("X-AUTH-TOKEN") String token, @Path("id") int userId, @Body EditProfileRequest editProfileRequest);
+
+    @GET("api/user/{id}/post")
+    Call<PostCardsResponse> getUserMyPosts(@Header("X-AUTH-TOKEN") String token, @Path("id") int userId);
+
+    @GET("api/user/{id}/liked-post")
+    Call<PostCardsResponse> getUserLikedPosts(@Header("X-AUTH-TOKEN") String token, @Path("id") int userId);
 }
