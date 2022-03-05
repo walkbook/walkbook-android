@@ -7,6 +7,11 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
+    <permission
+        android:name="com.example.walkbookandroid.andpermission.bridge"
+        tools:node="remove"
+        tools:selector="com.yanzhenjie.permission"/>
+
     <application
         android:usesCleartextTraffic="true"
         android:networkSecurityConfig="@xml/network_security_config"
